@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../../static/css/register.css">
+    <script src="../../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../../static/js/jquery.md5.js"></script>
+    <script src="../../static/js/jquery.ajax.csrf.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_register").click(function () {
+                if (isValid()) {
+                    $.ajax({
+                        url: "/user/register",
+                        data: {
+                            username: $("#username").val(),
+                            password: $.md5($("#user_psd").val()),
+                            sex: $("input[name='user_sex']:checked").val(),
+                            email: $("#user_email").val(),
+                            tel: $("#user_tel").val(),
+                            identify_code: $("#identify_code").val()
+                        },
+                        type: "post",
+                        dataType: "json",
+                        async: true,
+                        success: function (data) {
+                            if (data.state === '0') {
+                                //注册成功后跳转至登录页面
+                                alert(data.info);
+                                window.location.pathname = "/";
+                            } else {
+                                alert(data.info + '   [' + data.state + ']');
+                            }
+                        },
+                        error: function () {
+                            alert("ajax error")
+                        }
+                    });
+                } else {
+                    {#alert($("#user_tel").val());#}
+                }
+            });
+
+            $("#btn_identify_code").click(function () {
+                if ($("#user_tel").val().trim().length != 0) {
+                    $.ajax({
+                        url: "/user/identify_code",
+                        data: {
+                            tel: $("#user_tel").val(),
+                            type: 'register'
+                        },
+                        type: "post",
+                        dataType: "json",
+                        async: true,
+                        success: function (data) {
+                            if (data.state === '0') {
+                                alert("短信验证码已发送，请注意查收。");
+                            } else {
+                                alert(data.info + '   [' + data.state + ']');
+                            }
+                        },
+                        error: function () {
+                            alert("ajax error")
+                        }
+                    });
+
+                } else {
+                    $("#user_tel").focus();
+                    alert("请输入您的手机号码！");
+                }
+            });
+
+            function isValid() {
+                if ($("#username").val().trim().length === 0) {
+                    $("#username").focus();
+                    alert("请设置用户名！");
+                    return false;
+                }
+                if ($("#user_psd").val().trim().length === 0) {
+                    $("#user_psd").focus();
+                    alert("请设置密码！");
+                    return false;
+                }
+                if ($("#user_psd").val().length != $("#user_psd").val().trim().length) {
+                    $("#user_psd").focus();
+                    alert("密码不能含有空格！");
+                    return false;
+                }
+                if ($("#user_repsd").val().trim().length === 0) {
+                    $("#user_repsd").focus();
+                    alert("请确认密码！");
+                    return false;
+                }
+                if ($("#user_psd").val() != $("#user_repsd").val()) {
+                    $("#user_repsd").focus();
+                    alert("两次密码输入不一致！");
+                    return false;
+                }
+                if ($("input[name='user_sex']:checked").val() != 0 && $("input[name='user_sex']").val() != 1) {
+                    alert("请选择性别！");
+                    return false;
+                }
+
+                if ($("#user_email").val().trim().length === 0) {
+                    $("#user_email").focus();
+                    alert("请输入您的邮箱！");
+                    return false;
+                }
+                if ($("#user_tel").val().trim().length === 0) {
+                    $("#user_tel").focus();
+                    alert("请输入您的手机号码！");
+                    return false;
+                }
+
+                if ($("#identify_code").val().trim().length === 0) {
+                    $("#identify_code").focus();
+                    alert("请输入验证码！");
+                    return false;
+                }
+
+                if(!$("#user_agreement").is(':checked')){
+                    $("#user_agreement").focus();
+                    alert("请同意用户协议！");
+                    return false;
+                }
+                return true;
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="posi" id="posi">
+    <div class="reg-content">
+        <div class="reg-img"></div>
+        <div class="reg-form">
+            <div class="title">用户注册</div>
+            <div class="form-posi">
+                <div class="reg-input">
+                    <label class="user-name" for="username">用户名：</label>
+                    <input type="text" maxlength="10" placeholder="请设置您的用户名" name="username" id="username">
+                </div>
+                <div class="reg-input">
+                    <label class="user-psd" for="user_psd">登陆密码：</label>
+                    <input type="password" maxlength="63" placeholder="请输入您的登陆密码" name="user_psd" id="user_psd">
+                </div>
+                <div class="notice">
+                    <div class="notice-text">
+                        8-63英文字母、数字、字符构成，中间不能有空格
+                    </div>
+                </div>
+                <div class="reg-input">
+                    <label class="user-psd" for="user_repsd">确认密码：</label>
+                    <input type="password" maxlength="63" placeholder="请再次输入登陆密码" name="user_repsd" id="user_repsd"/>
+                </div>
+                <div class="reg-input">
+                    <div class="radio-sex">
+                        <div class="user-sex">性别：</div>
+                        <label for="sex_m" class="sex-text">
+                            男
+                        </label><input type="radio" name="user_sex" value="1" id="sex_m">
+                        <label for="sex_f" class="sex-text">
+                            女
+                        </label><input type="radio" name="user_sex" value="2" id="sex_f">
+                    </div>
+                </div>
+                <div class="reg-input">
+                    <label class="user-email" for="user_email">邮箱：</label>
+                    <input type="text" maxlength="255" placeholder="请输入您的邮箱" name="user_email" id="user_email"/>
+                </div>
+                <div class="reg-input">
+                    <label class="user-tel" for="user_tel">绑定手机：</label>
+                    <input type="number" name="user_tel" placeholder="请输入您的手机号"
+                           oninput="if( this.value.length > 11 )  this.value = this.value.slice(0,11)" id="user_tel"/>
+                </div>
+                <div class="reg-input">
+                    <div class="check-button">
+                        <button type="button" id="btn_identify_code">
+                            点击发送验证码
+                        </button>
+                    </div>
+                    <div class="check">
+                        <label class="check" for="identify_code">
+                            验证码：
+                        </label>
+                    </div>
+                    <input type="text" name="" placeholder="请输入验证码" maxlength="5" style="width: 90px; margin-right: 0;"
+                           id="identify_code"/>
+                </div>
+                <div class="reg-input">
+                    <div class="User-item">
+                        <input type="checkbox" value="1" name="user_agreement" id="user_agreement">
+                        <label for="user_agreement">已阅读并同意《<a href="/user/user_protocol">用户注册条款</a>》</label>
+                    </div>
+                </div>
+                <div class="reg-input">
+                    <div class="register-button">
+                        <button type="button" id="btn_register">注册</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,363 @@
+body{
+	background-color: #f6f6f6;
+}
+
+
+/*字体颜色*/
+.text-color-blue {
+    color: #69A6FF;
+}
+
+.text-color-yellow {
+    color: #FFA836;
+}
+
+.text-color-red {
+    color: #E37167;
+}
+.text-color-grey{
+	color: lightgrey;
+}
+/*灰线*/
+.box-hr{
+	border-bottom:1px solid lightgrey;
+}
+/*导航栏容器*/
+.nav-container{
+	position: fixed;
+	top:0;
+	margin: 0;
+	width: 100%;
+	height: 60px;
+	color: white;
+	background-color: #17241D;
+	min-width: 1000px;
+
+}
+
+.nav{
+	position:relative;
+	width: 95%;
+	height:100%;
+	margin:0 auto;
+}
+/*logo总样式*/
+.nav-logo{
+	position: relative;
+	top: 8px;
+	width: 180px;
+	height:100%;
+	color: white;
+}
+
+.nav-logo:hover{
+	color: white;
+}
+
+.nav-logo-img{
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    background: url(../img/nav-logo.png) no-repeat;
+    background-size: 100%;
+}
+
+.nav-logo-text{
+	position: absolute;
+    top: 0;
+    left: 51px;
+    height: 50px;
+    width: 124px;
+}
+/*搜索框总样式*/
+.nav-searchInput{
+	position: absolute;
+    top: 6px;
+    left: 400px;
+    width: 200px;
+    height: 60px;
+}
+
+.nav-searchInput-text{
+	position: absolute;
+    top: 12px;
+    left: 0;
+    width: 175px;
+    height: 30px;
+    color: white;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-right: 0;
+    border-radius: 4px 0 0 4px
+}
+
+.research-btn{
+	position: absolute;
+	top: 12px;
+    left: 190px;
+    height: 34px;
+    width: 26px;
+    border: 1px solid white;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    background: url(../img/research.png) no-repeat 0 5px;
+    background-size: 95%;
+
+}
+/*小图标总样式*/
+.nav-right{
+	position: absolute;
+    top: 0;
+    right: 100px;
+    width: 160px;
+    height: 100%;
+}
+
+.nav-right-icon{
+	position: absolute;
+	top: 0;
+	width: 30px;
+	height: 100%;
+	margin-right: 30px;
+}
+
+.nav-icon-notice{
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    background: url(../img/notice.png) no-repeat 0 20px;
+    background-size: 80%;
+}
+
+.nav-icon-message{
+	position: absolute;
+    top: 0;
+    left: 60px;
+    z-index: 20;
+    background: url(../img/message.png) no-repeat 0 20px;
+    background-size: 80%;
+}
+.nav-icon-user{
+	position: absolute;
+    top: 0;
+    left: 120px;
+    z-index: 20;
+    background: url(../img/user.png) no-repeat 0 20px;
+    background-size: 80%;
+}
+/*正文总样式*/
+.main{
+	display: block;
+	margin: 60px 0 0 0;
+    width: 100%;
+    height: auto;
+    min-width: 1100px;
+}
+/*正文任务模块总样式*/
+.main-task{
+	margin-left: 15%;
+    margin-right: 10px;
+    margin-top: 12px;
+	padding: 8px;
+    width: 45%;
+    height: 100%;
+    background-color: white;
+    min-width:580px;
+}
+/*任务模块*/
+.task-model{
+	display: block;
+	width: 100%;
+	margin-top: 8px;
+	margin-bottom: 70px;
+}
+/*任务标题*/
+.model-title-text{
+	width: 19em;
+	padding: 0 0 10px 10px;
+	margin-right: 20px;
+}
+/*任务用户信息*/
+.task-model-user{
+	margin-left: 3%;
+	width: 14%;
+}
+/*任务用户头像*/
+.task-model-user-img{
+	display: block;
+	width: 100%;
+	height: 90px;
+	min-width: 100px;
+}
+/*任务用户用户名*/
+.task-model-user-name{
+	display: block;
+	width: 100%;
+	height:1.1em;
+	padding-left:30%;
+}
+/*任务标签总样式*/
+.task-model-user-icon{
+	display: block;
+	width: 100%;
+	height:1.3em;
+	margin-top: 8px;
+	padding-left: 30%;
+	min-width: 580px;
+}
+/*任务用户标签*/
+.task-model-icons{
+	width: 1.3em;
+	height: 1.3em;
+}
+/*任务用户短信标签*/
+.task-model-user-icon-contacts{
+	background:url("../img/contacts.png")no-repeat;
+	background-size: 100%;
+}
+/*任务用户收藏标签*/
+.task-model-user-icon-collect{
+	background:url("../img/collect.png")no-repeat;
+	background-size: 100%; 
+}
+/*任务模块内容*/
+.task-model-content{
+	word-wrap: break-word;/*英文换行*/
+	word-break: break-all;
+	overflow: hidden;
+	margin-left: 40px;
+	width:70%;
+	height: 118px;
+	padding: 12px;
+}
+/*任务模块内容图片*/
+.task-model-content-img{
+	margin-left: 22%;
+	width: 200px;
+	height:120px;
+}
+
+.task-model-content-img img{
+	width: 100%;
+	height: 100%;
+}
+/*任务模块图标总样式*/
+.task-model-icon{
+	display:block;
+	float: right;
+	width: 40%;
+	height: 1.7em;
+	margin-right: 40px;
+}
+/*右浮动*/
+.float-right-style{
+	float: right;
+}
+/*小图标样式*/
+.task-model-icon img{
+	margin-right: 6px;
+}
+/*钱袋样式*/
+.price-text{
+	margin-right: 20px;
+}
+/*时间图标样式*/
+.time-text{
+	margin-right: 1em;
+}
+/*发布者信息模块总样式*/
+.main-publisher{
+	width: 17%;
+	height: 280px;
+	margin-left: 30px;
+	margin-top: 16px;
+	background: white;
+	padding: 8px;
+	min-width: 240px;
+}
+/*发布者信息模块标题*/
+.main-publisher-title{
+	display: block;
+	width: 100%;
+	padding-bottom: 8px;
+	height: 1.7em;
+}
+/*发布者信息个人信息*/
+.main-publisher-information{
+	display: block;
+	width: 100%;
+	height: 100px;
+}
+/*任务用户头像*/
+.main-publisher-user-img{
+	width:90px;
+	height: 90px;
+}
+/*发布者文字信息模块*/
+.main-publisher-user-text{
+	width: 120px;
+	height: 90px;
+	padding-left: 4px;
+}
+/*发布者姓名*/
+.main-publisher-user-name{
+	display: block;
+	width: 4em;
+	height: 1.4em;
+	margin-top: 12px;
+	text-align: center;
+}
+/*发布者学校*/
+.main-publisher-user-school{
+	display: block;
+	width: 9em;
+	height: 1.2em;
+	margin-top: 4px;
+}
+/*发布者任务历史*/
+.main-publisher-task-history{
+	display: block;
+	height: 80px;
+	width: 100%;
+}
+/*历史任务模块*/
+.task-history{
+	width: 30%;
+	height: 4.3em;
+	line-height: 200%;
+	text-align: center;
+}
+/*按钮组模块*/
+.main-publisher-btn{
+	display: block;
+	margin-top: 12px;
+	width: 100%;
+	height: 1.4em;
+}
+/*按钮样式*/
+.publisher-btn{
+	text-align: right;
+	width: 77px;
+	height: 2em;
+	padding-right: 10px;
+	margin-right: 15px;
+	border: 0;
+}
+/*按钮图片样式*/
+.publisher-btn-icon-img{
+	width: 12px;
+	height: 12px;
+}
+/*关注按钮样式*/
+.publisher-btn-focus{
+	margin-left: 17px;
+	background-color:#69A6FF;
+}
+/*私信按钮样式*/
+.publisher-btn-connect{
+	background-color: transparent;
+	border: 2px solid lightgrey;
+}

@@ -1,0 +1,4 @@
+Django==2.1.2
+PyMySql==0.9.2
+Pillow==5.0.0
+qcloudsms_py==0.1.3

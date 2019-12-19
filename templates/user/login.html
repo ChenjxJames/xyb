@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/jquery.md5.js"></script>
+    <script src="/static/js/jquery.ajax.csrf.js"></script>
+    <script>
+        $(document).ready(function () {
+            let count = 1;
+
+            //当输入密码后，加载图片验证码
+            $("#user_psd").blur(function () {
+                $("#identity").show();
+                refreshIdentifyCode();
+            });
+
+            //点击图片验证码，切换验证码
+            $("#identity").click(function () {
+                refreshIdentifyCode();
+            });
+
+            //登录按钮点击
+            $("#btn_login").click(function () {
+                if (isValid()) {
+                    loginAjax();
+                }
+            });
+
+            function loginAjax() {
+                $.ajax({
+                    url: "/user/login",
+                    data: {
+                        username: $("#user_name").val(),
+                        password: $.md5($("#user_psd").val()),
+                        keep_login: $("input[name='keep_login']:checked").val(),
+                        identity_code: $("#identify_code").val()
+                    },
+                    type: "post",
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+                        if (data.state === '0') {
+                            alert("登陆成功！");
+                            if (window.location.pathname === "/user/login") {
+                                window.location.pathname = '/';
+                            } else {
+                                window.location.reload();
+                            }
+                        } else if (data.state === '-1') {
+                            alert("验证码过期或验证码输入错误！");
+                            refreshIdentifyCode();
+                        } else {
+                            alert(data.info + '   [' + data.state + ']');
+                        }
+                    },
+                    error: function () {
+                        alert("ajax error");
+                    }
+                });
+            }
+
+            function isValid() {
+                if ($("#user_name").val().trim().length === 0) {
+                    $("#user_name").focus();
+                    alert("请输入您的用户名！");
+                    return false;
+                }
+                if ($("#user_psd").val().trim().length === 0) {
+                    $("#user_psd").focus();
+                    alert("请输入您的密码！");
+                    return false;
+                }
+                if ($("#identify_code").val().trim().length === 0) {
+                    $("#identify_code").focus();
+                    alert("请输入验证码！");
+                    return false;
+                }
+                return true;
+            }
+
+            //登录验证码刷新
+            function refreshIdentifyCode() {
+                count++;
+                $("#identity").attr("src", "/user/identify_code?count=" + count);
+            }
+
+        });
+    </script>
+</head>
+<body>
+<div id="login">
+    <!--登陆模态框-->
+    <div class="curtain" id="login_curtain">
+    </div>
+    <div class="modal-position login-shape" id="login_inner">
+        <form>
+            <div class="login-img">
+
+            </div>
+            <div class="login-title">
+                账号登陆
+            </div>
+            <div class="user-name">
+                <label for="user_name">用户名</label>
+                <input type="text" maxlength="10" name="user_name" id="user_name">
+            </div>
+            <div class="user-psd">
+                <label for="user_psd">密码</label>
+                <input type="password" maxlength="63" name="user_psd" id="user_psd">
+            </div>
+            <div class="identify-code">
+                <label for="identify_code">验证码</label>
+                <input type="text" maxlength="5" name="identify_code" id="identify_code">
+            </div>
+            <div class="identity">
+                <img id="identity" hidden alt='图片验证码'>
+            </div>
+            <button class="login-btn" type="button" id="btn_login">
+                登陆
+            </button>
+            <div class="login-menu">
+                <div class="rem-psd">
+                    <label for="rem_psd">记住我</label>
+                    <input type="checkbox" name="keep_login" value="true" id="keep_login"/>
+                </div>
+                <div class="for-psd"><a href="/user/reset_password_by_phone">忘记密码</a></div>
+                <div class="free-reg"><a href="/user/register">免费注册</a></div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

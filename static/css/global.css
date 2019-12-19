@@ -1,0 +1,102 @@
+/*页面内外边距为0*/
+body,ul,li{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	 /*设置文字不能被选中*/
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    user-select: none;
+}
+
+/*去掉列表的迁至图形*/
+ul{
+    list-style: none;
+}
+/*以及外边框修改为1像素大小，亮灰色*/
+input{
+	border: 1px solid white;
+}
+
+/*背景透明,去除点击时的蓝色边框*/
+input,button{
+	background: transparent;
+	outline: none;
+}
+
+/*去掉input输入框，type=number时右边的上下按钮*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+/*超链接去掉下划线*/
+a{
+	color: black;
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+	color: black;
+}
+/*去除display，多个div，inlin-block属性自带的下移*/
+.display-inline-block-style{
+	display: inline-block;
+	vertical-align: top;
+    -moz-box-sizing: border-box; /*Firefox3.5+*/
+    -webkit-box-sizing: border-box; /*Safari3.2+*/
+    box-sizing: border-box;
+}
+/*文字超出，省略号显示*/
+.text-overflow-hidden{
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+
+/*logo大字*/
+.text-size-one{
+	font-size: 32px;
+}
+/*正文大标题*/
+.text-size-two{
+	font-size:23px;
+	/*font-weight: 600;*/
+}
+/*正文小标题*/
+.text-size-three{
+	font-size: 18px;
+	font-weight: 400;
+}
+/*正文*/
+.text-size-four{
+	font-size: 13px;
+}
+
+/*绿色按钮*/
+.button-green{
+	width: 6em;
+	height:2em;
+	color: white;
+	background-color: #BFD099;
+	border:0;
+	border-radius: 4px;
+	box-shadow: 2px 2px 2px #999999;
+}
+
+/*红色按钮*/
+.button-red{
+	width: 6em;
+	height:2em;
+	color: white;
+	background-color: #E37167;
+	border:0;
+	border-radius: 4px;
+	box-shadow: 2px 2px 2px #999999;
+}

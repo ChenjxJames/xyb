@@ -1,0 +1,17 @@
+xyb.chenjx.com.cn
+www.chenjianxiong.cn
+
+windows下运行该项目：
+安装python3.5.2
+安装mysql
+更改./campus_help/settings.py中DATABASES的参数，以连接数据库
+在当前目录下执行如下命令
+pip install -r package.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver 0:8000
+打开浏览器输入localhost:8000即可使用
+
+
+Linux下部署该项目可以参考我blog中的文章
+https://www.chenjianxiong.cn/index.php/2018/11/13/ubuntu16_04_apache2_bu_shu_django2_xiang_mu/

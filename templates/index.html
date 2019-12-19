@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="zh-cn">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="../static/wui-date/css/wui.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/jquery.ajax.csrf.js"></script>
+    <script src="../static/js/jquery.md5.js"></script>
+    <script src="../static/wui-date/js/angular.min.js"></script>
+    <script src="../static/wui-date/js/wui-date.js"></script>
+    <script src="../static/js/index.js"></script>
+
+</head>
+<body>
+<nav><!--导航栏-->
+    <div class="nav-">
+        <div class="logo">
+            <div class="logo-img">
+            </div>
+            <div class="logo-text">
+                校园帮
+            </div>
+        </div>
+    </div><!--导航栏LOGO-->
+    <div class="research-" style="display: none;" id="nav_research">
+        <form>
+            <label for="research_keyword"></label><input type="text" class="research-text" id="research_keyword">
+            <input type="button" class="research-btn" id="btn_research">
+        </form>
+    </div><!--导航栏搜索框-->
+    <div class="icon-">
+        <div class="icon-notice" id="icon_notice"></div>
+        <div class="icon-message" id="icon_message"></div>
+        <div class="icon-personal" title="账户" id="icon_personal"></div>
+        <a class="icon-logout" title="注销" href="/user/logout" id="icon_logout" hidden></a>
+    </div><!--导航栏右侧小图标-->
+</nav><!--导航条结束-->
+<div class="roll-giant">
+    <img class="roll-giant-img" src="../static/img/gaint01.png" alt="首页图片">
+    <div class="research-" style="display: inline;" id="roll_giant_research">
+        <form>
+            <label for="research_keyword_gaint"></label><input type="text" class="research-text" id="research_keyword_gaint">
+            <input type="button" class="research-btn" id="btn_research_gaint">
+        </form>
+    </div><!--巨幕图片搜索框-->
+</div><!--巨幕图片-->
+
+<div class="content">
+    <div class="content-task"><!--任务列表块-->
+        <div class="divide-task">
+            <div class="divide-item divide-option" id="divide-sug">推荐</div>
+            <div class="divide-item" id="divide-col">关注</div>
+        </div><!--划分任务-->
+        <div id="task_list">
+            <p>任务列表，加载中...</p>
+        </div>
+
+    </div>
+    <div class="content-tool" id="tool">
+        <div class="tool01">
+            <div class="tool01-release" id="btn_add_task">
+                <div class="tool01-release-img"></div>
+                <div class="tool01-release-text">发布任务</div>
+            </div>
+            <div class="tool01-wait" id="btn_task_backlog">
+                <div class="tool01-wait-img"></div>
+                <div class="tool01-wait-text">待办</div>
+            </div>
+            <div class="tool01-finished" id="btn_task_over">
+                <div class="tool01-finished-img"></div>
+                <div class="tool01-finished-text">已完成</div>
+            </div>
+        </div>
+        <div class="tool02">
+            <div class="tool02-item">
+                <div class="tool02-co-img"></div>
+                <div class="tool02-item-text">我的收藏</div>
+            </div>
+            <div class="tool02-item">
+                <div class="tool02-his-img"></div>
+                <div class="tool02-item-text">我浏览过</div>
+            </div>
+            <div class="tool02-item" id="btn_ser">
+                <div class="tool02-ser-img"></div>
+                <div class="tool02-item-text">联系客服</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    {#  发布任务时间输入组件  #}
+    const app = angular.module('app', ["wui.date"]);
+</script>
+<!-- 下面是模态框 -->
+
+<div hidden id="login">
+    <!--登陆模态框-->
+    <div class="curtain" id="login_curtain">
+    </div>
+    <div class="modal-position login-shape" id="login_inner">
+        <form>
+            <div class="login-img">
+            </div>
+            <div class="login-title">
+                账号登陆
+            </div>
+            <div class="user-name">
+                <label for="user_name">用户名</label>
+                <input type="text" maxlength="10" name="user_name" id="user_name">
+            </div>
+            <div class="user-psd">
+                <label for="user_psd">密码</label>
+                <input type="password" maxlength="63" name="user_psd" id="user_psd">
+            </div>
+            <div class="identify-code">
+                <label for="identify_code">验证码</label>
+                <input type="text" maxlength="8" name="identify_code" id="identify_code">
+            </div>
+            <div class="identity">
+                <img id="identity" hidden alt='图片验证码' src="">
+            </div>
+            <button class="login-btn" type="button" id="btn_login">
+                登陆
+            </button>
+            <div class="login-menu">
+                <div class="rem-psd">
+                    <label for="keep_login">记住我</label>
+                    <input type="checkbox" name="keep_login" value="true" id="keep_login"/>
+                </div>
+                <div class="for-psd"><a href="/user/reset_password_by_phone">忘记密码</a></div>
+                <div class="free-reg"><a href="/user/register">免费注册</a></div>
+            </div>
+        </form>
+    </div>
+</div><!-- 登陆 -->
+
+
+<div hidden id="modal_add_task">
+    <div class="curtain" id="modal_add_task_curtain"></div>
+    <div class="modal-position add-task-shape">
+        <div class="add-task-title">
+            <div class="add-title text-green">
+                发布任务
+            </div>
+            <div class="add-close" id="add_close"></div>
+        </div>
+        <div class="theme-task-title">
+            <input class="task-theme" type="text" maxlength="63" id="task_theme"/>
+            <div class="theme-img"></div>
+            <label for="task_theme"><div class="theme-text text-blue">主题</div></label>
+        </div>
+        <div class="add-task-content">
+            <label for="task_detail"></label><textarea class="add-content div-inline-block" cols="40" rows="4" maxlength="1023"
+                                                       id="task_detail"></textarea>
+        </div>
+        <div class="add-task-demand">
+            <div class="icon-price add-task-icon-price"></div>
+            <label for="task_price"
+                   class="add-task-demand-text add-task-demand-price text-yellow div-inline-block">赏金</label>
+            <input type="text" maxlength="5"
+                   onKeypress="if (event.keyCode < 48 || event.keyCode > 57) event.returnValue = false;"
+                   class="task-price div-inline-block" id="task_price"/>
+            <div class="add-task-icon-time div-inline-block"></div>
+            <label for="task_deadline" class="add-task-price text-red div-inline-block">截止日期</label>
+            <wui-date class="task-deadtime div-inline-block" format="yyyy-mm-dd hh:mm" placeholder="请选择或输入日期"
+                      id="task_deadline" ng-model="task_deadline" position="top">
+            </wui-date>
+            <ul class="drop-down-posi div-inline-block">
+                <li class="drop-down div-inline-block">
+                    <div class="div-inline-block img-all back-open"></div>
+                    <div style="display: inline-block;" id="btn_visible">公开</div>
+                    <ul class="down-content" hidden id="visible_list">
+                        <li style="display: block" id="visible_all">
+                            <div class="div-inline-block img-all back-all"></div>
+                            公开
+                        </li>
+                        <li style="display: block" id="visible_male">
+                            <div class="div-inline-block img-all back-man"></div>
+                            仅男生可见
+                        </li>
+                        <li style="display: block" id="visible_female">
+                            <div class="div-inline-block img-all back-woman"></div>
+                            仅女生可见
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <button type="button" class="add-task-btn div-inline-block" id="btn_add_task_submit">发布</button>
+        </div>
+    </div>
+
+</div><!-- 发布任务 -->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

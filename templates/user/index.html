@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/personal.css">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <script>
+        $(document).ready(function () {
+            getUserInfo();
+            getMyTaskInfo();
+            getMyAcceptTaskInfo();
+            getTaskLen();
+
+            if (getUrlParam('task')) {
+                showTaskCenter();
+            }
+
+            $.post("/get_evaluate", {}, function (data) {
+                if (data[0].state === '0') {
+                    $("#avg_evaluate").attr('title', '平均评分' + data[1].evaluate_avg + '星级');
+                    for (let i = 1; i < 10; i += 2) {
+                        if (2*data[1].evaluate_avg > i) {
+                            $("#star_" + i).attr('src', '/static/img/star-light.png');
+                        }
+                    }
+                } else {
+                    alert(data[0].info + '   [' + data[0].state + ']');
+                }
+            });
+
+            $("#btn_user_info").click(function () {
+                $("#btn_user_info").addClass("item-checked");
+                $("#btn_task_center").removeClass("item-checked");
+                $("#btn_my_wallet").removeClass("item-checked");
+                $("#user_info").show();
+                $("#task_center").hide();
+                $("#task_center_accept").hide();
+                $("#my_wallet").hide();
+            });
+
+            $("#btn_task_center").click(function () {
+                showTaskCenter();
+            });
+
+            $("#btn_my_wallet").click(function () {
+                $("#btn_user_info").removeClass("item-checked");
+                $("#btn_task_center").removeClass("item-checked");
+                $("#btn_my_wallet").addClass("item-checked");
+                $("#my_wallet").show();
+                $("#user_info").hide();
+                $("#task_center").hide();
+                $("#task_center_accept").hide();
+            });
+
+            $("input").each(function () {
+                $(this).attr("disabled", "disabled")
+            });
+
+            $("#btn_edit").click(function () {
+                $("#btn_edit").css('background', 'lightgray');
+                $("#btn_save").css('background', '#ADD597');
+                $("input").each(function () {
+                    $(this).removeAttr("disabled", "")
+                });
+            });
+
+            $("#btn_save").click(function () {
+                $("#btn_edit").css('background', '#ADD597');
+                $("#btn_save").css('background', 'lightgray');
+                $("input").each(function () {
+                    $(this).attr("disabled", "disabled")
+                });
+            });
+
+            $("#add_price").click(function () {
+                let price = prompt("请输入您的充值金额（正整数）。");
+                $.post("add_price", {price: price}, function (data) {
+                    if (data.state === '0') {
+                        alert("充值成功");
+                        getUserInfo();
+                    } else {
+                        alert(data.info + '   [' + data.state + ']');
+                    }
+                });
+            });
+
+            $("#btn_accept_list").click(function () {
+                $("#task_center_accept").hide();
+                $("#task_center").show();
+            });
+
+            $("#btn_task_list").click(function () {
+                $("#task_center_accept").show();
+                $("#task_center").hide();
+            });
+
+            function showTaskCenter() {
+                $("#btn_user_info").removeClass("item-checked");
+                $("#btn_task_center").addClass("item-checked");
+                $("#btn_my_wallet").removeClass("item-checked");
+                $("#task_center_accept").show();
+                $("#user_info").hide();
+                $("#my_wallet").hide();
+            }
+
+            function getUserInfo() {
+                $.post('/user/user_info', {}, function (data) {
+                    if (data[0].state === '0') {
+                        $("#nav_username").text(data[1].user_name);
+                        $("#username").val(data[1].user_name);
+                        $("#tel").val(data[1].user_tel);
+                        $("#email").val(data[1].user_email);
+                        $("#user_price").text("账户余额：" + data[1].user_price + "元");
+                    } else {
+                        alert(data[0].info + '   [' + data[0].state + ']');
+                    }
+                });
+            }
+
+            function getMyTaskInfo() {
+                $.post('/get_my_task', {}, function (data) {
+                    if (data[0].state === '0') {
+                        $("#my_task_list").empty();
+                        $.each(data[1], function (i, item) {
+                            let stateHtml = "";
+                            if (item.task_status === 0) {
+                                stateHtml = "<div class=\"task-list-condition text-color-green\">待领取</div>\n";
+                            } else if (item.task_status === 1) {
+                                stateHtml = "<div class=\"task-list-condition text-color-green\">待完成</div>\n";
+                            } else if (item.task_status === 2) {
+                                stateHtml = "<div class=\"task-list-condition text-color-green\">完成</div>\n";
+                            } else if (item.task_status === 3) {
+                                stateHtml = "<div class=\"task-list-condition text-color-red\">已过期</div>\n";
+                            } else if (item.task_status === -1) {
+                                stateHtml = "<div class=\"task-list-condition text-color-red\">锁定</div>\n";
+                            }
+                            let html = "<a class=\"task-center-task\" href='/task_info?task_id=" + item.task_id + "'>\n" +
+                                "                <div class=\"task-list-title text-size-three display-inline-block-style\">\n" +
+                                "                    " + item.task_title + "\n" +
+                                "                </div>\n" +
+                                "                <div class=\"task-list-data-condition display-inline-block-style text-size-four\">\n" +
+                                "                    <div class=\"task-list-data text-color-grey\">" + item.create_time + "发布</div>\n" + stateHtml +
+                                "                </div>\n" +
+                                "            </a>";
+                            $("#my_task_list").append(html);
+                        });
+
+                    } else {
+                        alert(data[0].info + '   [' + data[0].state + ']');
+                    }
+                });
+            }
+
+            function getMyAcceptTaskInfo() {
+                $.post('/get_my_accept_task', {}, function (data) {
+                    if (data[0].state === '0') {
+                        $("#my_accept_task_list").empty();
+                        $.each(data[1], function (i, item) {
+                            let stateHtml = "";
+                            if (item.task_status === 0) {
+                                stateHtml = "<div class=\"task-list-condition text-color-green\">待领取</div>\n";
+                            } else if (item.task_status === 1) {
+                                stateHtml = "<div class=\"task-list-condition text-color-green\">待完成</div>\n";
+                            } else if (item.task_status === 2) {
+                                stateHtml = "<div class=\"task-list-condition text-color-green\">完成</div>\n";
+                            } else if (item.task_status === 3) {
+                                stateHtml = "<div class=\"task-list-condition text-color-red\">已过期</div>\n";
+                            } else if (item.task_status === -1) {
+                                stateHtml = "<div class=\"task-list-condition text-color-red\">锁定</div>\n";
+                            }
+                            let html = "<a class=\"task-center-task\" href='/task_info?task_id=" + item.task_id + "'>\n" +
+                                "                <div class=\"task-list-title text-size-three display-inline-block-style\">\n" +
+                                "                    " + item.task_title + "\n" +
+                                "                </div>\n" +
+                                "                <div class=\"task-list-data-condition display-inline-block-style text-size-four\">\n" +
+                                "                    <div class=\"task-list-data text-color-grey\">" + item.deadline + "截止</div>\n" + stateHtml +
+                                "                </div>\n" +
+                                "            </a>";
+                            $("#my_accept_task_list").append(html);
+                        });
+
+                    } else {
+                        alert(data[0].info + '   [' + data[0].state + ']');
+                    }
+                });
+            }
+
+            function getTaskLen() {
+                $.post("/get_task_len", {}, function f(data) {
+                    if (data[0].state === '0') {
+                        $("#task_len").text(data[1].task_length);
+                        $("#accept_len").text(data[1].accept_length);
+
+                    }
+                });
+            }
+        });
+
+        function getUrlParam(name) {
+            let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            let r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+    </script>
+</head>
+<body>
+<nav class="nav-container">
+    <!-- 导航栏 -->
+    <div class="nav">
+        <a class="nav-logo" href="/">
+            <div class="nav-logo-img"></div>
+            <div class="nav-logo-text text-size-one">
+                校园帮
+            </div>
+        </a>
+        <div class="nav-searchInput" style="width: 300px;">
+            <h3 style="margin: 12px 0 0 150px;">用户中心</h3>
+        </div>
+    </div>
+</nav>
+<!-- 正文容器 -->
+<div class="content-container">
+    <!-- 左导航栏 -->
+    <div class="nav-left display-inline-block-style">
+        <!--左导航栏头像-->
+        <div class="head-portrait">
+            <!--头像-->
+            <img src="/static/img/head-portrait.png" alt="头像"/>
+        </div>
+        <!--左导航栏用户名-->
+        <div class="nav-left-user-name" id="nav_username">
+            Username
+        </div>
+        <!--左导航栏评星-->
+        <div class="nav-left-user-star-level" title="" id="avg_evaluate">
+            <!--五颗星-->
+            <img src="/static/img/star-dark.png" alt="星星" id="star_1">
+            <img src="/static/img/star-dark.png" alt="星星" id="star_3">
+            <img src="/static/img/star-dark.png" alt="星星" id="star_5">
+            <img src="/static/img/star-dark.png" alt="星星" id="star_7">
+            <img src="/static/img/star-dark.png" alt="星星" id="star_9">
+        </div>
+        <!--关注&&粉丝数据-->
+        <div class="nav-left-user-fan-data">
+            <ul>
+                <li>关注:<span>1000</span><img src="/static/img/down.png" alt="向下箭头"/></li>
+                <li style="border-top: 0;">粉丝:<span>0</span><img src="/static/img/down.png" alt="向下箭头"/></li>
+            </ul>
+        </div>
+        <!--页面转向列表-->
+        <div class="nav-left-response-list">
+            <ul>
+                <li class="item-checked" id="btn_user_info">
+                    <img src="/static/img/personal-center.png" alt="个人信息"/>
+                    <p>个人信息</p>
+                </li>
+                <li id="btn_task_center">
+                    <img src="/static/img/task-history.png" alt="任务中心">
+                    <p>任务中心</p>
+                </li>
+                <li id="btn_my_wallet">
+                    <img src="/static/img/purse.png" alt="钱包">
+                    <p>我的钱包</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--个人信息 正文容器-->
+    <div class="content-layout display-inline-block-style" id="user_info">
+        <!--正文标题-->
+        <div class="content-layout-title">个人信息</div>
+        <!--正文内容容器-->
+        <div class="content-layout-content display-inline-block-style">
+            <!--个人信息标签-->
+            <div class="personal-left-label">
+                <!--标签文字-->
+                <div class="personal-left-label-text">
+                    账户管理
+                </div>
+                <img src="/static/img/down-triangle.png" alt="">
+            </div>
+            <!--正文个人信息-->
+            <div class="content-personal">
+                <!--正文右侧按钮-->
+                <div class="content-personal-btn">
+                    <button style="background: #ADD597" id="btn_edit">编辑</button>
+                    <button style="background: lightgray" id="btn_save">保存</button>
+                </div>
+                <!--正文栏头像-->
+                <div class="head-portrait head-portrait-content-add">
+                    <!--头像-->
+                    <img src="/static/img/head-portrait.png" alt="头像"/>
+                </div>
+                <!--表单个人信息-->
+                <div class="content-personal-information">
+                    <form>
+                        <ul>
+                            <li>
+                                <label for="username">用户名:</label>
+                                <input type="text" value="username" id="username"/>
+                            </li>
+                            <li>
+                                <label for="tel">手机号:</label>
+                                <input type="text" value="1234567890" id="tel"/>
+                            </li>
+                            <li>
+                                <label for="email">邮箱：</label>
+                                <input type="text" value="test@test.com" id="email"/>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <!--修改密码标签-->
+            <div class="personal-left-label">
+                <div class="personal-left-label-text">
+                    修改密码
+                </div>
+                <img src="/static/img/down-triangle.png" alt="">
+            </div>
+            <!--修改密码表单-->
+            <div class="content-update-password">
+                <a style="background: #ADD597; border: 0; color: white; padding: 5px; border-radius: 4px; height: 30px; width: 75px;"
+                   href="/user/reset_password">更改密码</a>
+            </div>
+        </div>
+    </div>
+    <!--任务中心 我领取的 正文-->
+    <div class="content-layout display-inline-block-style" style="display: none" id="task_center_accept">
+        <div class="content-layout-title" id="btn_accept_list">我领取的任务(<span id="accept_len"></span>)<img
+                src="/static/img/down.png" alt=""></div>
+        <div class="content-layout-content display-inline-block-style" id="my_accept_task_list">
+
+        </div>
+    </div>
+    <!--任务中心 我发出的 任务正文-->
+    <div class="content-layout display-inline-block-style" style="display: none" id="task_center">
+        <div class="content-layout-title" id="btn_task_list">我发出的任务(<span id="task_len"></span>)<img
+                src="/static/img/down.png" alt=""></div>
+        <div class="content-layout-content display-inline-block-style" id="my_task_list">
+
+
+        </div>
+    </div>
+    <!--钱包 正文-->
+    <div class="content-layout display-inline-block-style" style="display: none" id="my_wallet">
+        <div class="content-layout-title">我的钱包</div>
+        <div class="content-layout-content">
+            <div class="purse-balance display-inline-block-style">
+                <div class="display-inline-block-style text-size-four" id="user_price">账户余额：0元</div>
+                <div class="display-inline-block-style">
+                    <button class="button-red" style="margin-left: 30px;" id="add_price">点击充值</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

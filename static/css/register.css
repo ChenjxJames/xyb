@@ -1,0 +1,186 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: scroll;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+}
+
+.posi {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #bfd009;
+}
+
+.reg-content {
+    display: inline-block;
+    margin:5% 5%;
+    width: 90%;
+    height: 70%;
+    min-width: 1000px;
+    min-height: 500px;
+    background-color: white;
+}
+
+.reg-img {
+    float: left;
+    width: 50%;
+    height: 90%;
+    background: url(../img/register.png) -20px -40px no-repeat;
+    background-size: 190%;
+}
+
+/*左图样式*/
+.reg-form {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.reg-form div {
+    display: block;
+}
+
+.title {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 20px;
+    color: #5689d8;
+}
+
+/*表单标题*/
+.form-posi {
+    display: inline-block;
+    margin:10px auto;
+    width: 65%;
+    height: 100%;
+}
+
+/*表单全局定位*/
+.reg-input {
+    height: 35px;
+    width: 100%;
+    margin-top: 10px;
+    min-width: 420px;
+}
+
+/*输入块样式*/
+.reg-input div {
+    display: inline-block;
+}
+
+/*表单内都为块级*/
+.reg-input input {
+    float: right;
+    height: 65%;
+    width: 55%;
+    margin-right: 19%;
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding-left: 15px;
+    color: black;
+    font-size: 13px;
+    outline: none;
+}
+
+/*表单输入框样式*/
+.user-name, .user-psd, .user-sex, .user-email, .user-tel, .check {
+
+    font-size: 14px;
+    /*width: 80px;*/
+    /*height: 16px;*/
+    /*text-align: right;*/
+}
+
+/*表单文字样式*/
+.user-sex {
+    margin-right: 5%;
+}
+.sex-text{
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.radio-sex {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.radio-sex input {
+    float: none;
+    height: 15px;
+    width: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.notice {
+    width: 100%;
+    height: 12px;
+    color: #888888;
+}
+
+/*表单提示信息文字样式*/
+.notice-text {
+    float: right;
+    display: inline-block;
+    width: 75%;
+    font-size: 12px;
+    height: 100%;
+    min-width: 270px;
+}
+
+.check-button {
+    float: right;
+    width: 120px;
+    height: 25px;
+    margin-right: 70px;
+    margin-left: 18px;
+}
+
+.check-button button {
+    background: none;
+    height: 25px;
+    outline: none;
+    border: 1px solid grey;
+    color: grey;
+    border-radius: 3px;
+}
+
+.User-item {
+    width: 100%;
+    height: 100%;
+}
+
+.User-item input {
+    float: none;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.register-button {
+    margin-left: 50%;
+}
+
+.register-button button {
+    border: none;
+    background: #bfd009;
+    width: 60px;
+    height: 33px;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    text-indent: 2px;
+    font-weight: 500;
+}
