@@ -116,6 +116,10 @@
     line-height: 38px;
 }
 
+.task-deadline {
+    margin-bottom: 20px;
+}
+
 .task-deadline input {
     padding-left: 40px!important;
     margin-top: 16px;
