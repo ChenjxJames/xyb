@@ -1,5 +1,5 @@
-.index-discrible {
-    padding-bottom: 0;
+.content {
+    margin-bottom: 200px;
 }
 
 .content-left form {
@@ -78,7 +78,6 @@
 }
 
 .limit-select {
-    margin-top: -170px;
     width: 144px;
     height: 126px;
     background: rgba(255, 255, 255, 1);

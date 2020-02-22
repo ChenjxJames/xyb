@@ -70,7 +70,7 @@ li {
 nav {
     display: inline-flex;
     flex-direction: row;
-    padding: 30px 0 30px 0;
+    padding: 60px 0;
 }
 
 nav img {
@@ -103,7 +103,7 @@ nav div {
 
 .navigator-menu img {
     height: 19px;
-    margin-left: 10px;
+    margin-left: 25px;
 }
 
 .index-title {
@@ -153,8 +153,8 @@ nav div {
 
 .content-left {
     min-width: 700px;
-    width: 79%;
-    padding-right: 20px;
+    width: 73%;
+    padding-right: 7%;
 }
 
 .content-right {
@@ -206,12 +206,20 @@ nav div {
     padding: 0 6px 6px 6px;
 }
 
+.status:hover:first-child {
+    color: #526df0;
+}
+
 .status:hover {
-    background-color: #eee;
+    color: #da2811;
+}
+
+.status:hover:last-child {
+    color: #ffcc40;
 }
 
 .status img {
-    padding: 0 0 5px 5px;
+    padding: 0 0 5px 0;
     width: 29px;
     margin: auto;
     height: 29px;
@@ -265,7 +273,7 @@ nav div {
 
 .task-list {
     max-height: 600px;
-    margin: 20px 0;
+    margin: 55px 0 20px 0;
     overflow: hidden;
     padding-right: 10px;
 }
