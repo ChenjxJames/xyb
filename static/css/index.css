@@ -98,7 +98,7 @@ nav div {
 
 .navigator-menu {
     display: flex;
-    margin: auto 20px auto 0;
+    margin: auto 0 auto 0;
 }
 
 .navigator-menu img {
