@@ -143,11 +143,11 @@
             <div class="form-posi">
                 <div class="reg-input">
                     <label class="user-name" for="username">用户名：</label>
-                    <input type="text" maxlength="10" placeholder="请设置您的用户名" name="username" id="username">
+                    <input type="text" maxlength="10" placeholder="请设置您的用户名" autocomplete="off" name="username" id="username">
                 </div>
                 <div class="reg-input">
                     <label class="user-psd" for="user_psd">登陆密码：</label>
-                    <input type="password" maxlength="63" placeholder="请输入您的登陆密码" name="user_psd" id="user_psd">
+                    <input type="password" maxlength="63" placeholder="请输入您的登陆密码" autocomplete="off" name="user_psd" id="user_psd">
                 </div>
                 <div class="notice">
                     <div class="notice-text">
@@ -156,7 +156,7 @@
                 </div>
                 <div class="reg-input">
                     <label class="user-psd" for="user_repsd">确认密码：</label>
-                    <input type="password" maxlength="63" placeholder="请再次输入登陆密码" name="user_repsd" id="user_repsd"/>
+                    <input type="password" maxlength="63" placeholder="请再次输入登陆密码" autocomplete="off" name="user_repsd" id="user_repsd"/>
                 </div>
                 <div class="reg-input">
                     <div class="radio-sex">
@@ -171,11 +171,11 @@
                 </div>
                 <div class="reg-input">
                     <label class="user-email" for="user_email">邮箱：</label>
-                    <input type="text" maxlength="255" placeholder="请输入您的邮箱" name="user_email" id="user_email"/>
+                    <input type="text" maxlength="255" placeholder="请输入您的邮箱" name="user_email" id="user_email" autocomplete="off"/>
                 </div>
                 <div class="reg-input">
                     <label class="user-tel" for="user_tel">绑定手机：</label>
-                    <input type="number" name="user_tel" placeholder="请输入您的手机号"
+                    <input type="number" name="user_tel" placeholder="请输入您的手机号" autocomplete="off"
                            oninput="if( this.value.length > 11 )  this.value = this.value.slice(0,11)" id="user_tel"/>
                 </div>
                 <div class="reg-input">
@@ -190,7 +190,7 @@
                         </label>
                     </div>
                     <input type="text" name="" placeholder="请输入验证码" maxlength="5" style="width: 90px; margin-right: 0;"
-                           id="identify_code"/>
+                           id="identify_code" autocomplete="off"/>
                 </div>
                 <div class="reg-input">
                     <div class="User-item">
