@@ -12,6 +12,7 @@ python manage.py migrate
 python manage.py runserver 0:8000
 打开浏览器输入localhost:8000即可使用
 
+更新项目 git pull
 
 Linux下部署该项目可以参考我blog中的文章
 https://www.chenjianxiong.cn/index.php/2018/11/13/ubuntu16_04_apache2_bu_shu_django2_xiang_mu/
