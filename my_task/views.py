@@ -17,8 +17,8 @@ def index(request):
 # 登录验证
 @is_login
 def create_task(request):
-    result = {}
     if request.method == "POST":
+        result = {'state': '0', 'info': '任务创建成功！'}
         title = request.POST.get('title', None)
         detail = request.POST.get('detail', None)
         price = request.POST.get('price', None)
@@ -41,13 +41,15 @@ def create_task(request):
                                                    user_id=user_id, deadline=deadline, task_status=0)
                     user.user_price -= int(price)
                     user.save()
+                else:
+                    result = {'state': '-9', 'info': '您的余额不足，请充值后再发布任务！'}
             except Exception:
                 result = {'state': '-2', 'info': '服务器错误请稍后尝试！'}
-            else:
-                result = {'state': '0', 'info': '注册成功！'}
         else:
             result = {'state': '-1', 'info': '任务标题不能为空！'}
-    return JsonResponse(result, safe=False)
+        return JsonResponse(result, safe=False)
+    else:
+        return render(request, "add_task.html")
 
 
 # 查找任务，当keyword为空时从查找所有任务

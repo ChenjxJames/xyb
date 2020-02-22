@@ -1,0 +1,222 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    margin: 60px 12px 0 60px;
+    z-index: 999;
+}
+
+.nav img {
+    width: 60px;
+    height: 52px;
+    margin-right: 10px;
+}
+
+.nav div {
+    width: 100px;
+    height: 27px;
+    padding-top: 5px;
+    font-size: 30px;
+    font-family: FZZYjianti;
+    font-weight: 400;
+    color: white;
+}
+
+#login {
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 112px);
+}
+
+.background > div:first-child {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 50vw;
+    background: #FA4866;
+    z-index: -2;
+}
+
+.background > img {
+    position: fixed;
+    right: 0;
+    top: 10vh;
+    height: 80vh;
+    margin: 0;
+    padding: 0;
+    z-index: -1;
+}
+
+.background > .left-text {
+    position: fixed;
+    left: 55px;
+    top: calc(50vh - 15px);
+    width: 300px;
+    height: 30px;
+    font-size: 40px;
+    font-family: Ebrima;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    line-height: 38px;
+}
+
+.modal-position {
+    width: 523px;
+    height: 585px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 10px 54px 8px rgba(80, 107, 240, 0.11);
+    border-radius: 30px;
+    margin-top: -150px;
+
+}
+
+.modal-position form {
+    padding: 76px 81px 0px 76px;
+}
+
+.login-title {
+    font-size: 30px;
+    font-family: Microsoft YaHei;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 1);
+    line-height: 38px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.user-name, .user-psd, .identify-code, .user-email {
+    font-size: 18px;
+    font-family: Microsoft YaHei;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 1);
+    line-height: 38px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.user-name input, .user-psd input, .identify-code input, .user-email input {
+    background: none;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgba(225, 232, 238, 1);
+    height: 24px;
+
+}
+
+.login-btn {
+    width: 370px;
+    height: 53px;
+    background: rgba(250, 72, 102, 1);
+    box-shadow: 0px 6px 12px 1px rgba(250, 72, 102, 0.29);
+    border-radius: 18px;
+    font-size: 18px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    line-height: 38px;
+}
+
+.login-menu {
+    display: flex;
+    flex-direction: row;
+    width: 263px;
+    height: 16px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: rgba(134, 147, 159, 1);
+    line-height: 38px;
+    padding-left: 50px;
+}
+
+.rem-psd, .for-psd, .free-reg {
+    margin-top: 12px;
+    padding-bottom: 5px;
+}
+
+.rem-psd input {
+    margin-top: 13px;
+}
+
+input[type=checkbox] {
+    margin-right: 5px;
+    width: 13px;
+    height: 13px;
+}
+
+input[type=checkbox]:after {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    content: " ";
+    background-color: White;
+    color: #000000;
+    display: inline-block;
+    visibility: visible;
+    border-radius: 2px;
+    border: 1px solid #A9A9A9;
+}
+
+input[type=checkbox][disabled=disabled]:after {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    content: " ";
+    background-color: #DCDCDC;
+    color: #000000;
+    display: inline-block;
+    visibility: visible;
+    border-radius: 2px;
+    border: 1px solid #A9A9A9;
+}
+
+input[type=checkbox]:checked:after {
+    content: "\2713"; /*UNICODE中对号*/
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.rem-psd label, .for-psd a {
+    color: rgba(134, 147, 159, 1);
+    border-right: 1px solid #999999;
+    padding-right: 20px;
+    margin-right: 10px;
+}
+
+a {
+    color: rgba(134, 147, 159, 1);
+}
+
+
+.findback {
+    width: 523px;
+    height: 400px;
+}
+
+
+.findback-btn {
+    width: 370px;
+    height: 53px;
+    margin-top: 30px;
+    background: rgba(250, 72, 102, 1);
+    box-shadow: 0px 6px 12px 1px rgba(250, 72, 102, 0.29);
+    border-radius: 18px;
+    font-size: 18px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 1);
+    line-height: 38px;
+}
+
+.user-email input {
+    margin-top: 12px;
+}
+

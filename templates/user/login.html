@@ -4,7 +4,7 @@
     <title></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/jquery.md5.js"></script>
     <script src="/static/js/jquery.ajax.csrf.js"></script>
@@ -92,47 +92,56 @@
     </script>
 </head>
 <body>
-<div id="login">
-    <!--登陆模态框-->
-    <div class="curtain" id="login_curtain">
+    <div class="background">
+        <div></div>
+        <img src="/static/img/login-bk.png">
+        <div class="left-text">
+	    	Let’s start now!
+	    </div>
     </div>
-    <div class="modal-position login-shape" id="login_inner">
-        <form>
-            <div class="login-img">
-
-            </div>
-            <div class="login-title">
-                账号登陆
-            </div>
-            <div class="user-name">
-                <label for="user_name">用户名</label>
-                <input type="text" maxlength="10" name="user_name" id="user_name">
-            </div>
-            <div class="user-psd">
-                <label for="user_psd">密码</label>
-                <input type="password" maxlength="63" name="user_psd" id="user_psd">
-            </div>
-            <div class="identify-code">
-                <label for="identify_code">验证码</label>
-                <input type="text" maxlength="5" name="identify_code" id="identify_code">
-            </div>
-            <div class="identity">
-                <img id="identity" hidden alt='图片验证码'>
-            </div>
-            <button class="login-btn" type="button" id="btn_login">
-                登陆
-            </button>
-            <div class="login-menu">
-                <div class="rem-psd">
-                    <label for="rem_psd">记住我</label>
-                    <input type="checkbox" name="keep_login" value="true" id="keep_login"/>
-                </div>
-                <div class="for-psd"><a href="/user/reset_password_by_phone">忘记密码</a></div>
-                <div class="free-reg"><a href="/user/register">免费注册</a></div>
-            </div>
-        </form>
-    </div>
-</div>
+	<div class="nav">
+		<img src="/static/img/logo-white.svg">
+        <div>校园帮</div>
+	</div>
+	<div id="login">
+	    <div class="modal-position login-shape" id="login_inner">
+	        <!--  -->
+	        <form >
+	            <div class="login-title">
+	                账号登陆
+	            </div>
+	            <div class="user-name">
+	                <label for="user_name">用户名</label>
+	                <input type="text" maxlength="10" name="user_name" id="user_name">
+	            </div>
+	            <div class="user-psd">
+	                <label for="user_psd">密码</label>
+	                <input type="password" maxlength="63" name="user_psd" id="user_psd">
+	            </div>
+	            <div class="identify-code">
+	                <label for="identify_code">验证码</label>
+	                <input type="text" maxlength="5" name="identify_code" id="identify_code">
+	            </div>
+	            <div class="identity">
+	                <img id="identity" hidden alt='图片验证码'>
+	            </div>
+	            <button class="login-btn" type="button" id="btn_login">
+	                登陆
+	            </button>
+	            <div class="login-menu">
+	                <div class="rem-psd">
+	                	<form>
+	                		<input type="checkbox" name="keep_login" value="true" id="keep_login"/>
+	                    	<label for="rem_psd">记住我</label>
+	                	</form>
+	                </div>
+	                <div class="for-psd"><a href="/user/reset_password_by_phone">忘记密码</a></div>
+	                <div class="free-reg"><a href="/user/register">免费注册</a></div>
+	            </div>
+	        </form>
+	        
+	    </div>
+	</div>
 </body>
 </html>
 

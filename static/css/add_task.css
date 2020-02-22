@@ -1,0 +1,141 @@
+.index-discrible {
+    padding-bottom: 0;
+}
+
+.content-left form {
+    display: inline-flex;
+    flex-direction: column;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 1);
+}
+
+.content-left > form > input {
+    width: 717px;
+    height: 42px;
+    background: rgba(210, 220, 227, 1);
+    opacity: 0.4;
+    border-radius: 5px;
+    margin-top: 16px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.content-left label {
+    margin-top: 12px;
+}
+
+.task-discrible {
+    height: 168px !important;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(210, 220, 227, 1);
+    opacity: 0.4;
+    border-radius: 5px;
+    margin-top: 16px;
+    resize: none;
+}
+
+.submit-form {
+    margin-top: 12px;
+    height: 30px;
+}
+
+.submit-form button {
+    width: 154px;
+    height: 44px;
+    float: right;
+    box-shadow: 0 8px 14px 4px rgba(80, 107, 240, 0.15);
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 1);
+    background-color: #506BF0;
+    border-radius: 40px;
+}
+
+.limit {
+    width: 120px;
+    height: 17px;
+    display: inline-flex;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 1);
+}
+
+.icon-down {
+    width: 25px;
+    height: 25px;
+    margin-left: 12px;
+    background: url(../img/down.png) no-repeat;
+    background-size: 70%;
+}
+
+.icon-down:focus {
+    background: url(../img/down.png) no-repeat;
+}
+
+.limit-select {
+    margin-top: -170px;
+    width: 144px;
+    height: 126px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 8px 1px rgba(58, 63, 76, 0.22);
+    z-index: 999;
+
+}
+
+.limit-select ul {
+    padding: 0;
+    margin-top: 5px;
+}
+
+.limit-select li {
+    height: 40px;
+    padding-left: 12px;
+    box-sizing: border-box;
+
+}
+
+.limit-select li:hover {
+    background-color: #f6f6f6;
+}
+
+.limit-select img {
+    width: 19px;
+    height: 19px;
+    opacity: 0.5;
+}
+
+.limit-select span {
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 1);
+    line-height: 38px;
+}
+
+.task-deadline input {
+    padding-left: 40px!important;
+    margin-top: 16px;
+    height: 42px;
+    width: 717px;
+    background: rgba(210, 220, 227, 1);
+    opacity: 0.4;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.task-deadline i {
+    font-size: 28px;
+}
+
+.div-inline-block {
+    display: inline-block;
+    vertical-align: top;
+    -moz-box-sizing: border-box; /*Firefox3.5+*/
+    -webkit-box-sizing: border-box; /*Safari3.2+*/
+    box-sizing: border-box;
+}

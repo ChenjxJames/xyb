@@ -2,11 +2,18 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: scroll;
+    background-color: rgb(253,253,254);
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none !important;
+}
+
+@font-face {
+    /* font-properties */
+    font-family: FZZYjianti;
+    src:url('../font/FZZYjianti.TTF');
 }
 
 .posi {
@@ -15,19 +22,37 @@ input::-webkit-inner-spin-button {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #bfd009;
 }
 
 .reg-content {
     display: inline-block;
-    margin:5% 5%;
+    margin:0% 5%;
     width: 90%;
     height: 70%;
     min-width: 1000px;
     min-height: 500px;
-    background-color: white;
+    background-color: rgb(253,253,254);
+}
+.nav{
+    display: flex;
+    flex-direction: row;
+    margin:60px 12px 0 200px;
 }
 
+.nav img{
+    width:60px;
+    height:52px;
+    margin-right: 10px;
+}
+.nav div{
+    width:100px;
+    height:27px;
+    padding-top: 5px;
+    font-size:30px;
+    font-family: FZZYjianti;
+    font-weight:400;
+    color:rgba(80,107,240,1);
+}
 .reg-img {
     float: left;
     width: 50%;
@@ -49,10 +74,16 @@ input::-webkit-inner-spin-button {
 }
 
 .title {
-    text-align: center;
-    margin-top: 28px;
-    font-size: 20px;
-    color: #5689d8;
+    height:47px;
+    font-size:48px;
+    /*text-align: center;*/
+    padding-left: 320px;
+    font-family:Microsoft YaHei;
+    font-weight:300;
+    color:rgba(80,107,240,1);
+    line-height:51px;
+    margin-bottom: 70px;
+    letter-spacing:10.56pt;
 }
 
 /*表单标题*/
@@ -67,7 +98,7 @@ input::-webkit-inner-spin-button {
 .reg-input {
     height: 35px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 20px;
     min-width: 420px;
 }
 
@@ -79,7 +110,7 @@ input::-webkit-inner-spin-button {
 /*表单内都为块级*/
 .reg-input input {
     float: right;
-    height: 65%;
+    height: 90%;
     width: 55%;
     margin-right: 19%;
     border: 1px solid grey;
@@ -93,10 +124,17 @@ input::-webkit-inner-spin-button {
 /*表单输入框样式*/
 .user-name, .user-psd, .user-sex, .user-email, .user-tel, .check {
 
-    font-size: 14px;
+    font-size:18px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+    line-height:38px;
     /*width: 80px;*/
     /*height: 16px;*/
     /*text-align: right;*/
+}
+.verity-patch{
+    padding-left: 40px;
 }
 
 /*表单文字样式*/
@@ -132,7 +170,7 @@ input::-webkit-inner-spin-button {
 .notice-text {
     float: right;
     display: inline-block;
-    width: 75%;
+    width: 74%;
     font-size: 12px;
     height: 100%;
     min-width: 270px;
@@ -142,13 +180,13 @@ input::-webkit-inner-spin-button {
     float: right;
     width: 120px;
     height: 25px;
-    margin-right: 70px;
+    margin-right: 185px;
     margin-left: 18px;
 }
 
 .check-button button {
     background: none;
-    height: 25px;
+    height: 35px;
     outline: none;
     border: 1px solid grey;
     color: grey;
@@ -156,6 +194,7 @@ input::-webkit-inner-spin-button {
 }
 
 .User-item {
+    padding-left: 135px;
     width: 100%;
     height: 100%;
 }
@@ -168,19 +207,17 @@ input::-webkit-inner-spin-button {
     margin: 0;
     padding: 0;
 }
-
-.register-button {
-    margin-left: 50%;
+.register-button{
+    padding-left: 130px;
 }
-
 .register-button button {
     border: none;
-    background: #bfd009;
-    width: 60px;
-    height: 33px;
-    border-radius: 5px;
     color: white;
     font-size: 16px;
     text-indent: 2px;
     font-weight: 500;
+    width:330px;
+    height:50px;
+    background:rgba(80,107,240,1);
+    border-radius:10px;
 }

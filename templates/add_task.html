@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html ng-app="app" lang="zh-cn">
 <head>
-    <title>校园帮</title>
-    <meta charset="utf-8">
+	<title>发布任务</title>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/static/wui-date/css/wui.min.css">
     <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/add_task.css">
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/jquery.ajax.csrf.js"></script>
-    <script src="/static/js/index.js"></script>
+    <script src="/static/wui-date/js/angular.min.js"></script>
+    <script src="/static/wui-date/js/wui-date.js"></script>
+    <script src="/static/js/add_task.js"></script>
+    <script>
+        {#  发布任务时间输入组件  #}
+        const app = angular.module('app', ["wui.date"]);
+    </script>
 </head>
 <body>
     <div class="index">
         <div class="navigator">
            <nav>
-                <img alt="login" src="/static/img/logo-red.png">
+                <img src="/static/img/logo-red.png">
                 <div>校园帮</div>
             </nav>
             <div class="navigator-menu">
@@ -22,29 +29,57 @@
             </div>
         </div>
         <div class="index-title">
-            大学生校园生活互助平台
+            发布任务
         </div>
         <div class="index-discrible">
-            遇到了棘手问题，不知道该如何解决？来校园帮网站看看 即时发布任务，互帮互助，使您的校园生活更加便利安全。
-        </div>
-        <div class="add-task">
-            <button onclick="window.location.href='/create_task'">发布任务</button>
+            遇到了小问题想寻求帮助？发布任务问问大家！
         </div>
         <div class="content">
             <div class="content-left">
-                <div class="search">
-                    <form>
-                        <label for="research_keyword">
-                            <img alt="search-icon" src="/static/img/search.png" id="btn_research">
-                        </label>
-                        <input type="text" id="research_keyword">
-                    </form>
-                </div>
-                <div id="task_list" class="task-list">
-                </div>
+            	<form>
+            		<label for="task_theme">
+            			标题
+            		</label>
+            		<input type="text" id="task_theme" maxlength="63">
+            		<label for="task_detail">
+            			任务详情
+            		</label>
+            		<textarea class="task-discrible" id="task_detail" maxlength="1023"></textarea>
+            		<label for="task_price">
+            			赏金
+            		</label>
+            		<input type="number" id="task_price" maxlength="5">
+                    <label for="task_deadline">截止日期</label>
+                    <wui-date class="task-deadline div-inline-block" format="yyyy-mm-dd hh:mm" placeholder="请选择或输入日期"
+                              id="task_deadline" ng-model="task_deadline" position="top">
+                    </wui-date>
+                    <div class="submit-form">
+            			<div class="limit" id="set_visible">
+            				<span>公开</span>
+            				<div class="icon-down"></div>
+            			</div>
+            			<button id="btn_add_task_submit">发布任务</button>
+            		</div>
+            		<div class="limit-select" id="visible_list">
+            			<ul>
+            				<li id="visible_all">
+            					<img src="/static/img/public.png">
+                                <span>公开</span>
+            				</li>
+            				<li id="visible_male">
+            					<img src="/static/img/man.png">
+                                <span>仅男生可见</span>
+            				</li>
+            				<li id="visible_female">
+            					<img src="/static/img/woman.png">
+                                <span>仅女生可见</span>
+            				</li>
+            			</ul>
+            		</div>
+            	</form>
             </div>
             <div class="content-right">
-                <div class="content-action">
+            	<div class="content-action">
                     <div class="test-status">
                         <div class="status" onclick="window.location.href='/create_task'">
                             <img src="/static/img/add-task.svg"/>
@@ -81,12 +116,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-
-
-
+	</div>
 </body>
 </html>
