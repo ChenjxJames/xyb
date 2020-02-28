@@ -3,6 +3,18 @@ body {
     padding: 0;
 }
 
+button {
+    border: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+.identity {
+    height: 55px;
+}
+
 .nav {
     display: flex;
     flex-direction: row;

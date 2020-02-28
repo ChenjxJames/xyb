@@ -11,18 +11,10 @@ $(document).ready(function () {
 
     queryTaskInfo('');
 
-
-
     //新建任务模态框中的可见选择按钮单击
     $("#btn_visible").click(function () {
         $("#visible_list").show();
     });
-
-
-    //导航栏搜索框搜索
-    // $("#research_keyword").change(function () {
-    //     queryTaskInfo($("#research_keyword").val());
-    // });
 
     //在导航栏搜索框激活时按下键盘按键
     $("#research_keyword").keydown(function (event) {
@@ -71,12 +63,4 @@ $(document).ready(function () {
             }
         });
     }
-
-
-
-
-
-
-
-
 });

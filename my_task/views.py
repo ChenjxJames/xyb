@@ -12,6 +12,12 @@ from my_user.views import is_login, get_userid, get_user, get_user_by_id
 def index(request):
     return render(request, 'index.html')
 
+# 创建任务
+# 导航页
+@is_login
+def nav(request):
+    if request.method == "GET":
+        return render(request, "nav.html")
 
 # 创建任务
 # 登录验证
@@ -95,9 +101,7 @@ def task_info(request):
         else:
             data = task.__dict__
             del data['_state']
-            data['create_time'] = data['create_time'].strftime("%Y%m%d%H%M%S")
-            data['deadline_time'] = data['deadline'].strftime("%H:%M")
-            data['deadline'] = data['deadline'].strftime("%Y-%m-%d")
+            data['create_time'] = data['create_time'].strftime("%Y-%m-%d %H:%M")
 
             # 任务领取状态码生成
             # 0表示可领取;

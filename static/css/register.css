@@ -10,6 +10,10 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none !important;
 }
 
+button:focus {
+    outline: none;
+}
+
 @font-face {
     /* font-properties */
     font-family: FZZYjianti;

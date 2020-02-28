@@ -158,6 +158,28 @@ def reset_password(request):
         return render(request, "user/rePassword.html")
 
 
+# 更改密码（通过密码，需要登陆）
+@is_login
+def set_info(request):
+    if request.method == "POST":
+        result = {}
+        try:
+            username = request.POST['username']
+            tel = request.POST['tel']
+            email = request.POST['email']
+            result = {}
+            user_obj = models.UserInfo.objects.get(user_id=get_userid(request))
+            user_obj.user_name = username
+            user_obj.user_tel = tel
+            user_obj.user_email = email
+            user_obj.save()
+            result = {'state': '0', 'info': '用户信息更改成功！'}
+        except Exception as e:
+            result = {'state': '-9', 'info': '用户信息更改失败，您新设置的用户名可能已被其他用户使用，请更改后重试！'}
+        finally:
+            return JsonResponse(result, safe=True)
+
+
 # 通过手机号码更改密码（忘记密码）
 def reset_password_by_phone(request):
     if request.method == "POST":

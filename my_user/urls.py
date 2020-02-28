@@ -12,5 +12,6 @@ urlpatterns = [
     path('identify_code', views.identify_code),
     path('user_info', views.user_info),
     path('user_protocol', views.user_protocol),
-    path('add_price', views.add_price)
+    path('add_price', views.add_price),
+    path('set_info', views.set_info),
 ]

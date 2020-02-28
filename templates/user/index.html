@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <link rel="stylesheet" type="text/css" href="/static/css/global.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/personal.css">
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <meta charset="UTF-8">
     <title>个人中心</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/user_center.css">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script>
         $(document).ready(function () {
             getUserInfo();
-            getMyTaskInfo();
-            getMyAcceptTaskInfo();
-            getTaskLen();
+
+            if (getUrlParam('accept_task')) {
+                showAcceptTaskCenter();
+            }
 
             if (getUrlParam('task')) {
                 showTaskCenter();
@@ -19,9 +19,9 @@
 
             $.post("/get_evaluate", {}, function (data) {
                 if (data[0].state === '0') {
-                    $("#avg_evaluate").attr('title', '平均评分' + data[1].evaluate_avg + '星级');
-                    for (let i = 1; i < 10; i += 2) {
-                        if (2*data[1].evaluate_avg > i) {
+                    $(".star").attr('title', '平均评分' + data[1].evaluate_avg + '星级');
+                    for (let i = 1; i <= 5; i++) {
+                        if (data[1].evaluate_avg > i - 0.5) {
                             $("#star_" + i).attr('src', '/static/img/star-light.png');
                         }
                     }
@@ -31,46 +31,65 @@
             });
 
             $("#btn_user_info").click(function () {
-                $("#btn_user_info").addClass("item-checked");
-                $("#btn_task_center").removeClass("item-checked");
-                $("#btn_my_wallet").removeClass("item-checked");
+                $("#btn_user_info").css("font-weight", "600");
+                $("#btn_task_center").css("font-weight", "400");
+                $("#btn_my_wallet").css("font-weight", "400");
                 $("#user_info").show();
                 $("#task_center").hide();
-                $("#task_center_accept").hide();
                 $("#my_wallet").hide();
             });
 
             $("#btn_task_center").click(function () {
+                $("#btn_user_info").css("font-weight", "400");
+                $("#btn_task_center").css("font-weight", "600");
+                $("#btn_my_wallet").css("font-weight", "400");
                 showTaskCenter();
             });
 
             $("#btn_my_wallet").click(function () {
-                $("#btn_user_info").removeClass("item-checked");
-                $("#btn_task_center").removeClass("item-checked");
-                $("#btn_my_wallet").addClass("item-checked");
+                $("#btn_user_info").css("font-weight", "400");
+                $("#btn_task_center").css("font-weight", "400");
+                $("#btn_my_wallet").css("font-weight", "600");
                 $("#my_wallet").show();
                 $("#user_info").hide();
                 $("#task_center").hide();
-                $("#task_center_accept").hide();
             });
 
             $("input").each(function () {
                 $(this).attr("disabled", "disabled")
             });
 
+            $("#btn_save").css('background', 'lightgray');
+            $("#btn_save").attr("disabled", "disabled");
             $("#btn_edit").click(function () {
                 $("#btn_edit").css('background', 'lightgray');
-                $("#btn_save").css('background', '#ADD597');
+                $("#btn_save").css('background', '#506bf0');
+                $("#btn_edit").attr("disabled", "disabled");
+                $("#btn_save").removeAttr("disabled", "");
                 $("input").each(function () {
                     $(this).removeAttr("disabled", "")
                 });
             });
 
             $("#btn_save").click(function () {
-                $("#btn_edit").css('background', '#ADD597');
+                $("#btn_edit").css('background', '#506bf0');
                 $("#btn_save").css('background', 'lightgray');
+                $("#btn_edit").removeAttr("disabled", "");
+                $("#btn_save").attr("disabled", "disabled");
                 $("input").each(function () {
                     $(this).attr("disabled", "disabled")
+                });
+                $.post('/user/set_info',
+                    {
+                        username: $("#username").val(),
+                        tel: $("#tel").val(),
+                        email: $("#email").val()
+                    },
+                    function (data) {
+                        alert(data.info + '   [' + data.state + ']');
+                        if (data.state !== '0') {
+                            getUserInfo();
+                        }
                 });
             });
 
@@ -87,20 +106,29 @@
             });
 
             $("#btn_accept_list").click(function () {
-                $("#task_center_accept").hide();
-                $("#task_center").show();
+                showAcceptTaskCenter();
             });
 
+            function showAcceptTaskCenter() {
+                getMyAcceptTaskInfo();
+                getTaskLen();
+                $("#btn_task_list").removeClass("selected");
+                $("#btn_accept_list").addClass("selected");
+                $("#task_center").show();
+                $("#user_info").hide();
+                $("#my_wallet").hide();
+            }
+
             $("#btn_task_list").click(function () {
-                $("#task_center_accept").show();
-                $("#task_center").hide();
+                showTaskCenter();
             });
 
             function showTaskCenter() {
-                $("#btn_user_info").removeClass("item-checked");
-                $("#btn_task_center").addClass("item-checked");
-                $("#btn_my_wallet").removeClass("item-checked");
-                $("#task_center_accept").show();
+                getMyTaskInfo();
+                getTaskLen();
+                $("#btn_task_list").addClass("selected");
+                $("#btn_accept_list").removeClass("selected");
+                $("#task_center").show();
                 $("#user_info").hide();
                 $("#my_wallet").hide();
             }
@@ -124,26 +152,26 @@
                     if (data[0].state === '0') {
                         $("#my_task_list").empty();
                         $.each(data[1], function (i, item) {
-                            let stateHtml = "";
+                            let state = "";
                             if (item.task_status === 0) {
-                                stateHtml = "<div class=\"task-list-condition text-color-green\">待领取</div>\n";
+                                state = "待领取";
                             } else if (item.task_status === 1) {
-                                stateHtml = "<div class=\"task-list-condition text-color-green\">待完成</div>\n";
+                                state = "待完成";
                             } else if (item.task_status === 2) {
-                                stateHtml = "<div class=\"task-list-condition text-color-green\">完成</div>\n";
+                                state = "完成";
                             } else if (item.task_status === 3) {
-                                stateHtml = "<div class=\"task-list-condition text-color-red\">已过期</div>\n";
+                                state = "已过期";
                             } else if (item.task_status === -1) {
-                                stateHtml = "<div class=\"task-list-condition text-color-red\">锁定</div>\n";
+                                state = "锁定";
                             }
-                            let html = "<a class=\"task-center-task\" href='/task_info?task_id=" + item.task_id + "'>\n" +
-                                "                <div class=\"task-list-title text-size-three display-inline-block-style\">\n" +
-                                "                    " + item.task_title + "\n" +
-                                "                </div>\n" +
-                                "                <div class=\"task-list-data-condition display-inline-block-style text-size-four\">\n" +
-                                "                    <div class=\"task-list-data text-color-grey\">" + item.create_time + "发布</div>\n" + stateHtml +
-                                "                </div>\n" +
-                                "            </a>";
+
+                            let html = "<div class='task-row' onclick='window.location.href=\"/task_info?task_id=" + item.task_id + "\"'>\n" +
+                                "<div class='title-content'>" + item.task_title + "</div>\n" +
+                                "<div class='money-content'>" + item.task_price + "</div>\n" +
+                                "<div class='time-content'>" + item.create_time + "</div>\n" +
+                                "<div class='accept-content'>" + state + "</div>\n" +
+                                "</div>\n" +
+                                "<div class='showdow-' style='background-color:#A2DECE;'></div>\n"
                             $("#my_task_list").append(html);
                         });
 
@@ -156,29 +184,29 @@
             function getMyAcceptTaskInfo() {
                 $.post('/get_my_accept_task', {}, function (data) {
                     if (data[0].state === '0') {
-                        $("#my_accept_task_list").empty();
+                        $("#my_task_list").empty();
                         $.each(data[1], function (i, item) {
-                            let stateHtml = "";
+                            let state = "";
                             if (item.task_status === 0) {
-                                stateHtml = "<div class=\"task-list-condition text-color-green\">待领取</div>\n";
+                                state = "待领取";
                             } else if (item.task_status === 1) {
-                                stateHtml = "<div class=\"task-list-condition text-color-green\">待完成</div>\n";
+                                state = "待完成";
                             } else if (item.task_status === 2) {
-                                stateHtml = "<div class=\"task-list-condition text-color-green\">完成</div>\n";
+                                state = "完成";
                             } else if (item.task_status === 3) {
-                                stateHtml = "<div class=\"task-list-condition text-color-red\">已过期</div>\n";
+                                state = "已过期";
                             } else if (item.task_status === -1) {
-                                stateHtml = "<div class=\"task-list-condition text-color-red\">锁定</div>\n";
+                                state = "锁定";
                             }
-                            let html = "<a class=\"task-center-task\" href='/task_info?task_id=" + item.task_id + "'>\n" +
-                                "                <div class=\"task-list-title text-size-three display-inline-block-style\">\n" +
-                                "                    " + item.task_title + "\n" +
-                                "                </div>\n" +
-                                "                <div class=\"task-list-data-condition display-inline-block-style text-size-four\">\n" +
-                                "                    <div class=\"task-list-data text-color-grey\">" + item.deadline + "截止</div>\n" + stateHtml +
-                                "                </div>\n" +
-                                "            </a>";
-                            $("#my_accept_task_list").append(html);
+
+                            let html = "<div class='task-row' onclick='window.location.href=\"/task_info?task_id=" + item.task_id + "\"'>\n" +
+                                "<div class='title-content'>" + item.task_title + "</div>\n" +
+                                "<div class='money-content'>" + item.task_price + "</div>\n" +
+                                "<div class='time-content'>" + item.create_time + "</div>\n" +
+                                "<div class='accept-content'>" + state + "</div>\n" +
+                                "</div>\n" +
+                                "<div class='showdow-'></div>\n"
+                            $("#my_task_list").append(html);
                         });
 
                     } else {
@@ -207,158 +235,115 @@
     </script>
 </head>
 <body>
-<nav class="nav-container">
-    <!-- 导航栏 -->
-    <div class="nav">
-        <a class="nav-logo" href="/">
-            <div class="nav-logo-img"></div>
-            <div class="nav-logo-text text-size-one">
-                校园帮
-            </div>
-        </a>
-        <div class="nav-searchInput" style="width: 300px;">
-            <h3 style="margin: 12px 0 0 150px;">用户中心</h3>
+<div id="task-discription">
+    <div class="navigator">
+        <nav onclick="window.location.href='/'">
+            <img alt="logo" src="/static/img/logo-red.png">
+            <div>校园帮</div>
+        </nav>
+        <div class="navigator-menu">
+            <img alt="user-icon" src="/static/img/user.svg" onclick="window.location.href='/user/user_info'">
+            <img alt="menu-icon" src="/static/img/navigator.svg" onclick="window.location.href='/nav'">
         </div>
     </div>
-</nav>
-<!-- 正文容器 -->
-<div class="content-container">
-    <!-- 左导航栏 -->
-    <div class="nav-left display-inline-block-style">
-        <!--左导航栏头像-->
-        <div class="head-portrait">
-            <!--头像-->
-            <img src="/static/img/head-portrait.png" alt="头像"/>
-        </div>
-        <!--左导航栏用户名-->
-        <div class="nav-left-user-name" id="nav_username">
-            Username
-        </div>
-        <!--左导航栏评星-->
-        <div class="nav-left-user-star-level" title="" id="avg_evaluate">
-            <!--五颗星-->
-            <img src="/static/img/star-dark.png" alt="星星" id="star_1">
-            <img src="/static/img/star-dark.png" alt="星星" id="star_3">
-            <img src="/static/img/star-dark.png" alt="星星" id="star_5">
-            <img src="/static/img/star-dark.png" alt="星星" id="star_7">
-            <img src="/static/img/star-dark.png" alt="星星" id="star_9">
-        </div>
-        <!--关注&&粉丝数据-->
-        <div class="nav-left-user-fan-data">
-            <ul>
-                <li>关注:<span>1000</span><img src="/static/img/down.png" alt="向下箭头"/></li>
-                <li style="border-top: 0;">粉丝:<span>0</span><img src="/static/img/down.png" alt="向下箭头"/></li>
-            </ul>
-        </div>
-        <!--页面转向列表-->
-        <div class="nav-left-response-list">
-            <ul>
-                <li class="item-checked" id="btn_user_info">
-                    <img src="/static/img/personal-center.png" alt="个人信息"/>
-                    <p>个人信息</p>
-                </li>
-                <li id="btn_task_center">
-                    <img src="/static/img/task-history.png" alt="任务中心">
-                    <p>任务中心</p>
-                </li>
-                <li id="btn_my_wallet">
-                    <img src="/static/img/purse.png" alt="钱包">
-                    <p>我的钱包</p>
-                </li>
-            </ul>
+    <div class="user-info">
+        <div class="star">
+            <img src="/static/img/star-dark.png" class="float-l" id="star_1">
+            <img src="/static/img/star-dark.png" class="float-l" id="star_2">
+            <img src="/static/img/star-dark.png" class="float-l" id="star_3">
+            <img src="/static/img/star-dark.png" class="float-l" id="star_4">
+            <img src="/static/img/star-dark.png" id="star_5">
         </div>
     </div>
-    <!--个人信息 正文容器-->
-    <div class="content-layout display-inline-block-style" id="user_info">
-        <!--正文标题-->
-        <div class="content-layout-title">个人信息</div>
-        <!--正文内容容器-->
-        <div class="content-layout-content display-inline-block-style">
-            <!--个人信息标签-->
-            <div class="personal-left-label">
-                <!--标签文字-->
-                <div class="personal-left-label-text">
-                    账户管理
-                </div>
-                <img src="/static/img/down-triangle.png" alt="">
+    <div class="user-">
+        <img src="/static/img/picture-girl.svg">
+        <div class="user-name">
+            Jenny
+        </div>
+        <div class="text">
+            <div class="focus-on">
+                关注1000
             </div>
-            <!--正文个人信息-->
-            <div class="content-personal">
-                <!--正文右侧按钮-->
-                <div class="content-personal-btn">
-                    <button style="background: #ADD597" id="btn_edit">编辑</button>
-                    <button style="background: lightgray" id="btn_save">保存</button>
-                </div>
-                <!--正文栏头像-->
-                <div class="head-portrait head-portrait-content-add">
-                    <!--头像-->
-                    <img src="/static/img/head-portrait.png" alt="头像"/>
-                </div>
-                <!--表单个人信息-->
-                <div class="content-personal-information">
-                    <form>
-                        <ul>
-                            <li>
-                                <label for="username">用户名:</label>
-                                <input type="text" autocomplete="off" value="username" id="username"/>
-                            </li>
-                            <li>
-                                <label for="tel">手机号:</label>
-                                <input type="text" autocomplete="off" value="1234567890" id="tel"/>
-                            </li>
-                            <li>
-                                <label for="email">邮箱：</label>
-                                <input type="text" autocomplete="off" value="test@test.com" id="email"/>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-            <!--修改密码标签-->
-            <div class="personal-left-label">
-                <div class="personal-left-label-text">
-                    修改密码
-                </div>
-                <img src="/static/img/down-triangle.png" alt="">
-            </div>
-            <!--修改密码表单-->
-            <div class="content-update-password">
-                <a style="background: #ADD597; border: 0; color: white; padding: 5px; border-radius: 4px; height: 30px; width: 75px;"
-                   href="/user/reset_password">更改密码</a>
+            <div class="fans">
+                粉丝2000
             </div>
         </div>
     </div>
-    <!--任务中心 我领取的 正文-->
-    <div class="content-layout display-inline-block-style" style="display: none" id="task_center_accept">
-        <div class="content-layout-title" id="btn_accept_list">我领取的任务(<span id="accept_len"></span>)<img
-                src="/static/img/down.png" alt=""></div>
-        <div class="content-layout-content display-inline-block-style" id="my_accept_task_list">
-
-        </div>
-    </div>
-    <!--任务中心 我发出的 任务正文-->
-    <div class="content-layout display-inline-block-style" style="display: none" id="task_center">
-        <div class="content-layout-title" id="btn_task_list">我发出的任务(<span id="task_len"></span>)<img
-                src="/static/img/down.png" alt=""></div>
-        <div class="content-layout-content display-inline-block-style" id="my_task_list">
-
-
-        </div>
-    </div>
-    <!--钱包 正文-->
-    <div class="content-layout display-inline-block-style" style="display: none" id="my_wallet">
-        <div class="content-layout-title">我的钱包</div>
-        <div class="content-layout-content">
-            <div class="purse-balance display-inline-block-style">
-                <div class="display-inline-block-style text-size-four" id="user_price">账户余额：0元</div>
-                <div class="display-inline-block-style">
-                    <button class="button-red" style="margin-left: 30px;" id="add_price">点击充值</button>
+    <div class="content">
+        <div class="user-form">
+            <div class="user-list">
+                <div style="display: inline-block; vertical-align: top;">
+                    <div class="personal" style="font-weight: 600;" id="btn_user_info">个人信息</div>
+                    <div class="task" id="btn_task_center">任务中心</div>
+                    <div class="purse" id="btn_my_wallet">我的钱包</div>
+                </div>
+                <img src="/static/img/1.png">
+            </div>
+            <div class="personal-info" id="user_info">
+                <form>
+                    <div class="title">
+                        账户管理
+                        <button id="btn_save">保存</button>
+                        <button id="btn_edit" style="margin-right: 10px;">编辑</button>
+                    </div>
+                    <div class="input-">
+                        <span>用户名:</span>
+                        <input type="text" id="username"/>
+                    </div>
+                    <div class="input-">
+                        <span>手机:</span>
+                        <input type="number" id="tel"/>
+                    </div>
+                    <div class="input-">
+                        <span class="move-one">邮箱:</span>
+                        <input type="email" id="email"/>
+                    </div>
+                </form>
+                <div style="margin-top: 40px">
+                    <div class="title">
+                        修改密码
+                    </div>
+                    <button onclick="window.location.href='/user/reset_password'">更改密码</button>
                 </div>
             </div>
 
+            <!-- end -->
+
+            <div class="task-center" style="display:none;" id="task_center">
+                <div class="title">
+                    <div class="option selected" id="btn_task_list">我发出的任务(<span id="task_len"></span>)</div>
+                    <div class="option" id="btn_accept_list">我领取的任务(<span id="accept_len"></span>)</div>
+                </div>
+                <div class="task-list">
+                    <div class="head">
+                        <div class="task-title">标题</div>
+                        <div class="task-money">赏金</div>
+                        <div class="task-time">时间</div>
+                        <div class="task-status">状态</div>
+                    </div>
+                    <div class="task-info" id="my_task_list">
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="my-purse" style="display:none" id="my_wallet">
+                <div class="purse-title">我的钱包</div>
+                <div class="purse-content">
+                    <div class="text" id="user_price">
+                        账户余额: 0元
+                    </div>
+                    <div class="button">
+                        <button id="add_price">
+                            点击充值
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
-
 </body>
 </html>

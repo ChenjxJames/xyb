@@ -3,6 +3,7 @@ from my_task import views
 
 urlpatterns = [
     path('', views.index),
+    path('nav', views.nav),
     path('create_task', views.create_task),
     path('query_tasks', views.query_tasks),
     path('task_info', views.task_info),

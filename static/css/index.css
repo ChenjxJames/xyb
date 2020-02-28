@@ -23,7 +23,7 @@ body {
     align-items: center;
     flex-direction: column;
     overflow-y: auto;
-    background-image: url(../img/background.png);
+    background: url(../img/background.png) no-repeat 0 0;
     min-width: 1080px;
 }
 
@@ -70,6 +70,7 @@ li {
 nav {
     display: inline-flex;
     flex-direction: row;
+    align-items: center;
     padding: 60px 0;
 }
 
@@ -80,6 +81,7 @@ nav img {
 }
 
 nav div {
+    line-height: 22px;
     width: 66px;
     height: 23px;
     font-size: 22px;
@@ -263,7 +265,7 @@ nav div {
 .brand {
     width: 230px;
     height: 45px;
-    font-size: 16px;
+    font-size: 14px;
     font-family: Microsoft YaHei;
     font-weight: 400;
     color: rgba(187, 191, 204, 1);

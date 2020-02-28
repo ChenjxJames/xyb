@@ -2,10 +2,8 @@
 <html lang="zh-cn">
 <head>
     <title>任务详情</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/global.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/task_sort.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/task-info.css">
     <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <title></title>
     <script>
         $(document).ready(function () {
             let task_can_accept = '0';
@@ -15,8 +13,8 @@
                     $("#task_title").text(data[1].task_title);
                     $("#task_detail").text(data[1].task_detail);
                     $("#task_price").text(data[1].task_price);
-                    $("#deadline").text(data[1].deadline);
-                    $("#deadline_time").text(data[1].deadline_time);
+                    $("#create_time").text(data[1].create_time);
+                    countDown(data[1].deadline);
                     getUserInfo(data[1].user_id);
 
                     task_can_accept = data[1].task_can_accept;
@@ -35,6 +33,16 @@
                         btn_accept_task.hide();
                     }
                 }
+            });
+
+            $("#user").click(function (event) {
+                console.log("123");
+                $("#user_info").show();
+                event.stopPropagation();
+            });
+
+            $("body").click(function () {
+                $("#user_info").hide();
             });
 
             $("#btn_accept_task").click(function () {
@@ -95,6 +103,26 @@
                 window.location.pathname = '/user/user_info';
             });
 
+            function countDown(dateStr) {
+                let nowtime = new Date();  //获取当前时间
+                let endtime = new Date(dateStr);  //定义结束时间
+                if (nowtime < endtime) {
+                    setInterval(function () {
+                        nowtime = new Date();  //获取当前时间
+                        let lefttime = endtime.getTime() - nowtime.getTime();  //距离结束时间的毫秒数
+                        let leftd = Math.floor(lefttime / (1000 * 60 * 60 * 24));  //计算天数
+                        let lefth = Math.floor(lefttime / (1000 * 60 * 60) % 24);  //计算小时数
+                        let leftm = Math.floor(lefttime / (1000 * 60) % 60);  //计算分钟数
+                        let lefts = Math.floor(lefttime / 1000 % 60);  //计算秒数
+                        $("#count_down_days").text(leftd);
+                        $("#count_down_hours").text(lefth);
+                        $("#count_down_minutes").text(leftm);
+                    }, 1000);
+                } else {
+                    alert("该任务已过截止时间。");
+                }
+            }
+
             //获取用户信息
             function getUserInfo(user_id) {
                 $.post("/user/user_info", {user_id: user_id}, function f(data) {
@@ -132,107 +160,89 @@
     </script>
 </head>
 <body>
-<nav class="nav-container">
-    <!-- 导航栏 -->
-    <div class="nav">
-        <a class="nav-logo" href="/">
-            <div class="nav-logo-img"></div>
-            <div class="nav-logo-text text-size-one">
-                校园帮
-            </div>
-        </a>
-        <div class="nav-right"><!-- icon小图标 -->
-            <div class="nav-right-icon nav-icon-notice"></div>
-            <div class="nav-right-icon nav-icon-message"></div>
-            <div class="nav-right-icon nav-icon-user" id="icon_personal"></div>
+<div id="task-discription">
+    <div class="navigator">
+        <nav onclick="window.location.href='/'">
+            <img alt="logo" src="/static/img/logo-red.png">
+            <div>校园帮</div>
+        </nav>
+        <div class="navigator-menu">
+            <img alt="user-icon" src="/static/img/user.svg" onclick="window.location.href='/user/user_info'">
+            <img alt="menu-icon" src="/static/img/navigator.svg" onclick="window.location.href='/nav'">
         </div>
     </div>
-</nav>
-<!-- 正文 -->
-<div class="main">
-    <div class="main-task display-inline-block-style">
-        <!-- 任务模块 -->
-        <div class="task-model">
-            <!-- 任务模块标题 -->
-            <div class="box-hr">
-                <div class="text-size-two model-title-text display-inline-block-style" id="task_title">任务标题，加载中...</div>
-                <button class="button-green display-inline-block-style" id="btn_accept_task">领取任务</button>
-                <button class="button-green display-inline-block-style" style="display: none;" id="btn_enter_task">
-                    确认完成
-                </button>
-                <button class="button-green display-inline-block-style" style="display: none;" id="btn_evaluate_task">
-                    评价
-                </button>
-            </div>
-            <!-- 任务模块个人信息 -->
-            <div class="task-model-user display-inline-block-style">
-                <img src="/static/img/head-portrait.png" class="task-model-user-img" width="200" height="200" alt="头像"/>
-                <div class="task-model-user-name text-color-blue" id="username_1">发布者</div>
-                <div class="task-model-user-icon">
-                    <div class="task-model-icons task-model-user-icon-contacts display-inline-block-style"></div>
-                    <!-- 样式：图标样式 图标短信样式 内联行样式 -->
-                    <div class="task-model-icons task-model-user-icon-collect display-inline-block-style"></div>
+    <div class="task">
+        <div class="task-content">
+            <div class="title" id="task_title">任务标题，加载中...</div>
+            <div class="body">
+                <div class="discrible-title">
+                    <div class="user" id="user">
+                        <img src="/static/img/picture-girl.svg">
+                        <div class="text"><span id="username_1">发布者</span><span id="create_time"></span></div>
+                    </div>
+                    <div class="value">
+                        <div class="text" id="task_price">10.00</div>
+                        <img src="/static/img/discription-money.svg">
+                    </div>
+                </div>
+                <div class="discription" id="task_detail">
+                    任务详情，加载中...
+                </div>
+                <div class="discription-foot">
+                    <img src="/static/img/discription-collect.png">
+                </div>
+                <div class="user-info" style="display: none;" id="user_info">
+                    <div class="user-">
+                        <img src="/static/img/picture-girl.svg"/>
+                        <div class="user-name" id="username_1">发布者</div>
+                    </div>
+                    <div class="user-info-foot">
+                        <button class="focuse-on">
+                            <img src="/static/img/focus-on.png"/>
+                            关注
+                        </button>
+                        <button class="connect-to">
+                            <img src="/static/img/connect-to.svg"/>
+                            私信
+                        </button>
+                    </div>
                 </div>
             </div>
-            <!-- 任务模块文字 -->
-            <div class="task-model-content display-inline-block-style font-size-four" id="task_detail">
-                任务详情，加载中...
+            <div class="accept-task">
+                <button id="btn_accept_task">领取任务</button>
+                <button style="display: none;" id="btn_enter_task">确认完成</button>
+                <button style="display: none;" id="btn_evaluate_task">评价</button>
             </div>
-            <!-- 任务模块图片 -->
-            <div class="task-model-content-img">
-                <img src="/static/img/task.jpg" alt="任务图片">
-            </div>
-            <!-- 任务模块底端图标 -->
-            <div class="task-model-icon">
-                <div class="text-color-red text-size-four float-right-style ">
-                    <span class="time-text display-inline-block-style" id="deadline">1999.99.99</span>
-                    <span class="display-inline-block-style" id="deadline_time">16时</span>
+        </div>
+        <div class="temp">
+            <img src="/static/img/rwxq.png" style="width: 100%;">
+            <div class="cards">
+                <div class="time-card">
+                    <div class="card-title">
+                        DAYS
+                    </div>
+                    <div class="card-value" id="count_down_days">
+                        00
+                    </div>
                 </div>
-                <img src="/static/img/time.png" class="display-inline-block-style task-model-icons float-right-style"
-                     alt="时间标签">
-                <span class="text-color-yellow text-size-four float-right-style price-text" id="task_price">10.00</span>
-                <img src="/static/img/price.png" class="display-inline-block-style task-model-icons float-right-style"
-                     width="" height="" alt="钱袋标签">
+                <div class="time-card">
+                    <div class="card-title">
+                        HOURS
+                    </div>
+                    <div class="card-value" id="count_down_hours">
+                        00
+                    </div>
+                </div>
+                <div class="time-card">
+                    <div class="card-title">
+                        MINUTES
+                    </div>
+                    <div class="card-value" id="count_down_minutes">
+                        00
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="main-publisher display-inline-block-style">
-        <div class="main-publisher-title box-hr">
-            <span class=" text-size-three">关于发布者</span>
-        </div>
-        <div class="main-publisher-information box-hr">
-            <img src="/static/img/head-portrait.png" class="main-publisher-user-img display-inline-block-style"
-                 alt="头像"/>
-            <div class="main-publisher-user-text display-inline-block-style">
-                <span class="main-publisher-user-name  text-size-three" id="username_2">发布者</span>
-                <span class="main-publisher-user-school  text-size-four" id="user_tel">Tel</span>
-            </div>
-        </div>
-        <div class="main-publisher-task-history">
-            <div class="task-history display-inline-block-style">
-                <span class="text-color-grey text-size-four">已发布</span><br>
-                <span id="task_len">0</span>
-            </div>
-            <div class="task-history display-inline-block-style">
-                <span class="text-color-grey text-size-four">已领取</span><br>
-                <span id="accept_len">0</span>
-            </div>
-            <div class="task-history display-inline-block-style">
-                <span class="text-color-grey text-size-four">评分</span><br>
-                <span id="avg_evaluate">0</span>
-            </div>
-            <div class="main-publisher-btn">
-                <button class="publisher-btn publisher-btn-focus display-inline-block-style">
-                    <img src="/static/img/add.png" alt="关注按钮" class="publisher-btn-icon-img"/>
-                    关注他
-                </button>
-                <button class="publisher-btn publisher-btn-connect display-inline-block-style">
-                    <img class="publisher-btn-icon-img" src="/static/img/connect.png" alt="私信按钮"/>
-                    私信他
-                </button>
-            </div>
-        </div>
-
     </div>
 </div>
 </body>
