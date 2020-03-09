@@ -5,6 +5,7 @@ body {
     overflow-y: auto;
     min-width: 1080px;
     margin: 0;
+    background: #fcfcfc;
 }
 
 /*global*/
@@ -91,7 +92,7 @@ button {
 .user-info {
     width: 98.5%;
     height: 120px;
-    background-color: white;
+    background: white;
     position: relative;
     z-index: -1;
     margin-bottom: 13px;
@@ -178,6 +179,7 @@ button {
 .user-list {
     width: 170px;
     height: 100%;
+    margin-top: 25px;
     font-size: 16px;
     font-family: Microsoft YaHei;
     font-weight: 400;
@@ -189,21 +191,24 @@ button {
 
 .personal {
     margin-top: 100px;
+    cursor: pointer;
 }
 
 .task {
     margin-top: 123px;
+    cursor: pointer;
 }
 
 .purse {
     margin-top: 184px;
+    cursor: pointer;
 }
 
 .personal-info {
-    width: 81%;
+    width: calc(100% - 170px);
     min-width: 500px;
     height: 100%;
-    margin: 25px 0px 0px 39px;
+    margin: 25px 0 0 39px;
 }
 
 .personal-info .title {

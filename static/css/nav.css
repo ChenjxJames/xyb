@@ -55,6 +55,7 @@ nav img {
 
 nav div {
     height: 22px;
+    line-height: 22px;
     font-size: 22.76px;
     font-family: FZZongYi-M05S;
     font-weight: 400;
@@ -83,6 +84,7 @@ nav div {
     font-weight: bold;
     color: rgba(220, 225, 252, 1);
     margin-bottom: 28px;
+    cursor: pointer;
 }
 
 .nav-list li:hover {
@@ -97,4 +99,5 @@ nav div {
     font-family: Microsoft YaHei;
     font-weight: 400;
     color: rgba(220, 225, 252, 1);
+    cursor: default;
 }

@@ -7,6 +7,7 @@
     <script>
         $(document).ready(function () {
             let task_can_accept = '0';
+            let is_collected = 0;
             //请求任务信息
             $.post("/task_info", {task_id: getUrlParam("task_id")}, function f(data) {
                 if (data[0].state === '0') {
@@ -14,6 +15,10 @@
                     $("#task_detail").text(data[1].task_detail);
                     $("#task_price").text(data[1].task_price);
                     $("#create_time").text(data[1].create_time);
+                    is_collected = data[1].is_collected;
+                    if (is_collected) {
+                        $("#collect_btn").attr('src', '/static/img/star-light.png')
+                    }
                     countDown(data[1].deadline);
                     getUserInfo(data[1].user_id);
 
@@ -36,12 +41,13 @@
             });
 
             $("#user").click(function (event) {
-                console.log("123");
+                console.log("user");
                 $("#user_info").show();
                 event.stopPropagation();
             });
 
             $("body").click(function () {
+                console.log("body");
                 $("#user_info").hide();
             });
 
@@ -101,6 +107,24 @@
 
             $("#icon_personal").click(function () {
                 window.location.pathname = '/user/user_info';
+            });
+
+            // 收藏或取消收藏
+            $("#collect_btn").click(function () {
+                $.post("/collect_task", {
+                    task_id: getUrlParam("task_id"),
+                    is_collected: is_collected
+                }, function f(data) {
+                    if (data[0].state === '0') {
+                       if (is_collected) {
+                           is_collected = 0;
+                           $("#collect_btn").attr('src', '/static/img/discription-collect.png');
+                       } else {
+                           is_collected = 1;
+                           $("#collect_btn").attr('src', '/static/img/star-light.png');
+                       }
+                    }
+                });
             });
 
             function countDown(dateStr) {
@@ -189,7 +213,7 @@
                     任务详情，加载中...
                 </div>
                 <div class="discription-foot">
-                    <img src="/static/img/discription-collect.png">
+                    <img src="/static/img/discription-collect.png" style="cursor: pointer;" id="collect_btn">
                 </div>
                 <div class="user-info" style="display: none;" id="user_info">
                     <div class="user-">

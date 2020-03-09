@@ -32,9 +32,45 @@ $(document).ready(function () {
         }
 
     });
+    
+    $("#my_collect_tasks").click(function () {
+        $("#my_collect_tasks").css("background", "#f6f6f6");
+        getCollectedTaskInfo();
+    });
 
     function queryTaskInfo(keyword) {
         $.getJSON("/query_tasks", {keyword: keyword}, function (data) {
+            $("#task_list").empty();
+            if (data[0].state === '0') {
+                $.each(data[1], function (i, item) {
+                    let visible = '';
+                    if (item.task_sex_preference === 1) {
+                        visible = '-male';
+                    } else if (item.task_sex_preference === 2) {
+                        visible = '-female';
+                    }
+
+                    //合成每个任务的html
+                    let html = "<div class='task"+visible+"' onclick='window.location.href=\"/task_info?task_id="+item.task_id+"\"'>\n" +
+                            "       <div class='task"+visible+"-content'>\n" +
+                            "           <div class='time'>"+item.deadline+"</div>\n" +
+                            "           <div class='title'>"+item.task_title+"</div>\n" +
+                            "           <div class='money'>￥"+item.task_price+"</div>\n" +
+                            "       </div>\n" +
+                            "       <div class='icon'>\n" +
+                            "           <img src='/static/img/right-arr.png'>\n" +
+                            "       </div>\n" +
+                            "</div>"
+                    $("#task_list").append(html);
+                });
+            } else {
+                alert(data[0].info + '   [' + data[0].state + ']');
+            }
+        });
+    }
+
+     function getCollectedTaskInfo(keyword) {
+        $.getJSON("/get_collect_tasks", {}, function (data) {
             $("#task_list").empty();
             if (data[0].state === '0') {
                 $.each(data[1], function (i, item) {

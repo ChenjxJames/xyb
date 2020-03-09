@@ -72,6 +72,7 @@ nav {
     flex-direction: row;
     align-items: center;
     padding: 60px 0;
+    cursor: pointer;
 }
 
 nav img {
@@ -206,6 +207,7 @@ nav div {
     display: inline-flex;
     flex-direction: column;
     padding: 0 6px 6px 6px;
+    cursor: pointer;
 }
 
 .status:hover:first-child {
@@ -244,6 +246,7 @@ nav div {
 .status-list li {
     color: lightgrey;
     padding: 10px 20px;
+    cursor: pointer;
 }
 
 .status-list li:hover {
@@ -358,6 +361,7 @@ nav div {
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 4px 32px 6px rgba(0, 0, 0, 0.06);
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .task img {

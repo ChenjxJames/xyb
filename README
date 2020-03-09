@@ -16,3 +16,10 @@ python manage.py runserver 0:8000
 
 Linux下部署该项目可以参考我blog中的文章
 https://www.chenjianxiong.cn/index.php/2018/11/13/ubuntu16_04_apache2_bu_shu_django2_xiang_mu/
+
+部署ubuntu服务器时
+/my_user/views.py里identify_code方法的构造字体对象path需要更改
+font1 = ImageFont.truetype('/var/www/campus_help/my_user/font/SIMSUNB.TTF', 40)
+font2 = ImageFont.truetype('/var/www/campus_help/my_user/font/ALGER.TTF', 40)
+
+

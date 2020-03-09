@@ -102,7 +102,7 @@ def task_info(request):
             data = task.__dict__
             del data['_state']
             data['create_time'] = data['create_time'].strftime("%Y-%m-%d %H:%M")
-
+            data['is_collected'] = len(models.TaskCollectInfo.objects.filter(user_id=user_id, task_id=task_id))
             # 任务领取状态码生成
             # 0表示可领取;
             # 1表示用户自己发布的任务他人已领取，可以确认结束；
@@ -305,4 +305,43 @@ def get_evaluate(request):
             result = [{'state': '-2', 'info': '服务器错误请稍后尝试！'}]
         return JsonResponse(result, safe=False)
 
+# 收藏或取消收藏任务
+@is_login
+def collect_task(request):
+    if request.method == "POST":
+        try:
+            user_id = get_userid(request)
+            task_id = request.POST.get('task_id', None)
+            is_collected = bool(request.POST.get('is_collected', None) == '1')
+            if is_collected:
+                models.TaskCollectInfo.objects.get(user_id=user_id, task_id=task_id).delete()
+                result = [{'state': '0', 'info': '取消收藏成功！'}]
+            else:
+                collect_id = time.strftime('%Y%m%d', time.localtime(time.time())) + "00"
+                while True:
+                    if len(models.TaskCollectInfo.objects.filter(collect_id=collect_id)) == 0:
+                        break
+                    collect_id = str(int(collect_id) + 1)
+                models.TaskCollectInfo.objects.create(collect_id=collect_id, task_id=task_id, user_id=user_id)
+                result = [{'state': '0', 'info': '收藏成功！'}]
+        except Exception as e:
+            result = [{'state': '-2', 'info': '服务器错误请稍后尝试！'}]
+        return JsonResponse(result, safe=False)
 
+# 获取用户收藏的任务
+@is_login
+def get_collect_tasks(request):
+    try:
+        user_id = get_userid(request)
+        my_collect_tasks = models.TaskCollectInfo.objects.filter(user_id=user_id)
+        data = []
+        for my_collect_task in my_collect_tasks:
+            item = models.TaskInfo.objects.get(task_id=my_collect_task.task_id).__dict__
+            del item['_state']
+            item['create_time'] = item['create_time'].strftime("%Y%m%d%H%M%S")
+            item['deadline'] = item['deadline'].strftime("%Y-%m-%d %H:%M")
+            data.append(item)
+        result = [{'state': '0', 'info': '获取收藏任务列表成功！'}, data]
+    except Exception:
+        result = [{'state': '-2', 'info': '服务器错误请稍后尝试！'}]
+    return JsonResponse(result, safe=False)
