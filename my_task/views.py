@@ -134,6 +134,58 @@ def task_info(request):
     else:
         return render(request, "task_info.html")
 
+# 删除任务
+# 登录验证
+@is_login
+def remove_task(request):
+    result = {}
+    if request.method == "POST":
+        task_id = request.POST.get('task_id', None)
+        user_id = get_userid(request)
+        try:
+            task = models.TaskInfo.objects.get(task_id=task_id)
+            # 用户验证，是本人发起的任务、任务状态待领取
+            if task.user_id == user_id and task.task_status == 0:
+                task.delete()
+                result = {'state': '0', 'info': '任务删除成功！'}
+        except Exception as e:
+            result = {'state': '-2', 'info': '服务器错误请稍后尝试！', 'error': e}
+        return JsonResponse(result, safe=False)
+
+# 更改任务信息
+# 登录验证
+@is_login
+def set_task(request):
+    result = {}
+    if request.method == "POST":
+        task_id = request.POST.get('task_id', None)
+        title = request.POST.get('title', None)
+        detail = request.POST.get('detail', None)
+        price = request.POST.get('price', None)
+        sex_preference = request.POST.get('sex_preference', None)
+        deadline = request.POST.get('deadline', None)
+        user_id = get_userid(request)
+        try:
+            task = models.TaskInfo.objects.get(task_id=task_id)
+            # 用户验证，是本人发起的任务、任务状态待领取
+            if task.user_id == user_id and task.task_status == 0:
+                user = get_user(request)
+                if user.user_price > int(price)-task.task_price:
+                    user.user_price -= int(price)-task.task_price
+                    user.save()
+                    task.task_title = title
+                    task.task_detail = detail
+                    task.task_price = float(price)
+                    task.task_sex_preference = sex_preference
+                    task.deadline = deadline
+                    task.save()
+                    result = {'state': '0', 'info': '任务信息更改成功！'}
+                else:
+                    result = {'state': '-9', 'info': '您的余额不足，请充值后再更改任务金额！'}
+        except Exception as e:
+            result = {'state': '-2', 'info': '服务器错误请稍后尝试！', 'error': e}
+        return JsonResponse(result, safe=False)
+
 
 # 领取任务
 # 登录验证

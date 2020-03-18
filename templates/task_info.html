@@ -26,14 +26,17 @@
                     const btn_accept_task = $("#btn_accept_task");
                     btn_accept_task.attr('task_id', data[1].task_id);
                     btn_accept_task.attr('user_id', data[1].user_id);
-                    if (task_can_accept === '1') {
-                        btn_accept_task.hide();
+                    if (task_can_accept === '0') {
+                        btn_accept_task.show();
+                    } else if (task_can_accept === '1') {
                         $("#btn_enter_task").show();
                     } else if (task_can_accept === '2') {
-                        btn_accept_task.hide();
                         $("#btn_evaluate_task").show();
                     } else if (task_can_accept === '3') {
                         btn_accept_task.hide();
+                    } else if (task_can_accept === '-1') {
+                        $("#btn_delete_task").show();
+                        $("#btn_set_task").show();
                     } else if (task_can_accept === '-4') {
                         btn_accept_task.hide();
                     }
@@ -49,6 +52,25 @@
             $("body").click(function () {
                 console.log("body");
                 $("#user_info").hide();
+            });
+
+            $("#btn_set_task").click(function () {
+                if (task_can_accept === '-1') {
+                    window.location.href='/create_task?task_id='+getUrlParam("task_id");
+                }
+            });
+
+            $("#btn_delete_task").click(function () {
+                if (task_can_accept === '-1') {
+                    if (confirm("确认删除该任务？")) {
+                        $.post('/remove_task', {task_id: getUrlParam("task_id")}, function (data) {
+                            if (data.state === '0') {
+                                alert('任务删除成功。');
+                                window.location.href='/user/user_info?task=true';
+                            }
+                        });
+                    }
+                }
             });
 
             $("#btn_accept_task").click(function () {
@@ -233,7 +255,9 @@
                 </div>
             </div>
             <div class="accept-task">
-                <button id="btn_accept_task">领取任务</button>
+                <button style="display: none;" id="btn_accept_task">领取任务</button>
+                <button style="display: none;" id="btn_set_task">更改信息</button>
+                <button style="display: none;" id="btn_delete_task">删除任务</button>
                 <button style="display: none;" id="btn_enter_task">确认完成</button>
                 <button style="display: none;" id="btn_evaluate_task">评价</button>
             </div>

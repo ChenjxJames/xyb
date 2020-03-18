@@ -22,6 +22,7 @@ $(document).ready(function () {
         if (event.which === 13) {
             queryTaskInfo($("#research_keyword").val());
         }
+        event.stopPropagation();
     });
 
     $("#task_list").on("click",".task-", function () {

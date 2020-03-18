@@ -1,6 +1,32 @@
 $(document).ready(function () {
-    let sex = '0';      //发布任务性别限定（0:all, 1:man, 2:woman）
+    let sex = 0;      //发布任务性别限定（0:all, 1:man, 2:woman）
     $("#visible_list").hide();
+
+    if (getUrlParam('task_id')) {
+        $.post("/task_info", {task_id: getUrlParam("task_id")}, function f(data) {
+            if (data[0].state === '0') {
+                $("#task_theme").val(data[1].task_title);
+                $("#task_detail").val(data[1].task_detail);
+                $("#task_price").val(data[1].task_price);
+                $("input.wui-date-input.task-deadtime.div-inline-block").val(data[1].deadline);
+                sex = data[1].task_sex_preference;
+                if (data[1].task_sex_preference === 0) {
+                    $("#set_visible>span").text("公开");
+                } else if(data[1].task_sex_preference === 1) {
+                    $("#set_visible>span").text("仅男生可见");
+                } else if(data[1].task_sex_preference === 2) {
+                    $("#set_visible>span").text("仅女生可见");
+                }
+                let task_can_accept = data[1].task_can_accept;
+                if (task_can_accept === '-1') {
+                    $(".index-title").text("修改任务信息");
+                    $(".index-discrible").text("请详细准确的填写信息。")
+                    $("#btn_add_task_submit").hide();
+                    $("#btn_set_task").show();
+                }
+            }
+        });
+    }
 
     $("body").click(function () {
         $("#visible_list").hide();
@@ -13,7 +39,7 @@ $(document).ready(function () {
 
     //设置为全部人可见
     $("#visible_all").click(function () {
-        $("#set_visible>span").text("公开")
+        $("#set_visible>span").text("公开");
         sex = 0;
     });
 
@@ -32,14 +58,21 @@ $(document).ready(function () {
     //发布任务按钮单击
     $("#btn_add_task_submit").click(function () {
         if (createTaskIsValid()) {
-            createTaskAjax();
+            createTaskAjax("/create_task");
         }
     });
 
-    function createTaskAjax() {
+    $("#btn_set_task").click(function () {
+        if (createTaskIsValid()) {
+            createTaskAjax("/set_task");
+        }
+    });
+
+    function createTaskAjax(url) {
         $.ajax({
-            url: "/create_task",
+            url: url,
             data: {
+                task_id: getUrlParam('task_id'),
                 title: $("#task_theme").val(),
                 detail: $("#task_detail").val(),
                 price: $("#task_price").val(),
@@ -98,3 +131,10 @@ $(document).ready(function () {
         return true;
     }
 });
+
+function getUrlParam(name) {
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    let r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]);
+    return null; //返回参数值
+}

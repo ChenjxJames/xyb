@@ -16,4 +16,6 @@ urlpatterns = [
     path('get_evaluate', views.get_evaluate),
     path('collect_task', views.collect_task),
     path('get_collect_tasks', views.get_collect_tasks),
+    path('remove_task', views.remove_task),
+    path('set_task', views.set_task),
 ]
