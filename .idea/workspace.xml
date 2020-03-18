@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f076aceb-8aa4-4c7c-b7f1-bc8e4c129d3a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_task/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_task/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/my_task/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="174" column="31" lean-forward="true" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
+            <state relative-caret-position="348">
+              <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -42,7 +43,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/task_info.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
+            <state relative-caret-position="1102">
               <caret line="58" column="62" selection-start-line="58" selection-start-column="55" selection-end-line="58" selection-end-column="62" />
             </state>
           </provider>
@@ -57,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/add_task.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
+            <state relative-caret-position="93">
+              <caret line="87" column="45" selection-start-line="87" selection-start-column="45" selection-end-line="87" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -191,6 +192,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -213,7 +215,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -352,7 +353,8 @@
       <workItem from="1583675906401" duration="6455000" />
       <workItem from="1583739718918" duration="9237000" />
       <workItem from="1584507509754" duration="4462000" />
-      <workItem from="1584545962972" duration="248000" />
+      <workItem from="1584545962972" duration="1118000" />
+      <workItem from="1584550030684" duration="70000" />
     </task>
     <task id="LOCAL-00001" summary="UI update and fix">
       <created>1582367218353</created>
@@ -442,7 +444,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="276488000" />
+    <option name="totallyTimeSpent" value="277428000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -455,22 +457,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.65531063" visible="true" weight="0.12691997" />
-      <window_info id="Structure" order="1" sideWeight="0.34468937" side_tool="true" visible="true" weight="0.12691997" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5826772" visible="true" weight="0.18674211" />
+      <window_info id="Structure" order="1" sideWeight="0.41732284" side_tool="true" visible="true" weight="0.18674211" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4987874" visible="true" weight="0.113676734" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4987874" weight="0.38898757" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39893618" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32978722" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.9396092" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5012126" side_tool="true" weight="0.3410302" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.312611" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.09769094" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32978722" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -504,6 +507,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="UI update and fix" />
@@ -787,6 +800,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/task_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1102">
+          <caret line="58" column="62" selection-start-line="58" selection-start-column="55" selection-end-line="58" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/user/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4446">
@@ -801,27 +821,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/add_task.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="87" column="45" selection-start-line="87" selection-start-column="45" selection-end-line="87" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/my_task/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="174" column="31" lean-forward="true" selection-start-line="174" selection-start-column="31" selection-end-line="174" selection-end-column="31" />
+        <state relative-caret-position="348">
+          <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/task_info.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="58" column="62" selection-start-line="58" selection-start-column="55" selection-end-line="58" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/add_task.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
         </state>
       </provider>
     </entry>

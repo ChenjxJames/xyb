@@ -146,6 +146,9 @@ def remove_task(request):
             task = models.TaskInfo.objects.get(task_id=task_id)
             # 用户验证，是本人发起的任务、任务状态待领取
             if task.user_id == user_id and task.task_status == 0:
+                user = get_user(request)
+                user.user_price += task.task_price
+                user.save()
                 task.delete()
                 result = {'state': '0', 'info': '任务删除成功！'}
         except Exception as e:
