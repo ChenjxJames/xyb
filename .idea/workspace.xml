@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f076aceb-8aa4-4c7c-b7f1-bc8e4c129d3a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_task/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/my_task/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/my_task/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
+            <state relative-caret-position="345">
+              <caret line="163" column="51" lean-forward="true" selection-start-line="163" selection-start-column="51" selection-end-line="163" selection-end-column="51" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -61,7 +60,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/add_task.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
+            <state relative-caret-position="1653">
               <caret line="87" column="45" selection-start-line="87" selection-start-column="45" selection-end-line="87" selection-end-column="45" />
             </state>
           </provider>
@@ -199,17 +198,6 @@
             <path>
               <item name="campus_help" type="b2602c69:ProjectViewProjectNode" />
               <item name="campus_help" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus_help" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus_help" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus_help" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus_help" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -354,7 +342,8 @@
       <workItem from="1583739718918" duration="9237000" />
       <workItem from="1584507509754" duration="4462000" />
       <workItem from="1584545962972" duration="1118000" />
-      <workItem from="1584550030684" duration="70000" />
+      <workItem from="1584550030684" duration="187000" />
+      <workItem from="1584550351689" duration="35000" />
     </task>
     <task id="LOCAL-00001" summary="UI update and fix">
       <created>1582367218353</created>
@@ -440,11 +429,18 @@
       <option name="project" value="LOCAL" />
       <updated>1584513006040</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="fix">
+      <created>1584550157848</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1584550157849</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277428000" />
+    <option name="totallyTimeSpent" value="277580000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -457,10 +453,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5826772" visible="true" weight="0.18674211" />
-      <window_info id="Structure" order="1" sideWeight="0.41732284" side_tool="true" visible="true" weight="0.18674211" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.58259326" visible="true" weight="0.18997575" />
+      <window_info id="Structure" order="1" sideWeight="0.41740674" side_tool="true" visible="true" weight="0.18997575" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
@@ -473,7 +468,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.9396092" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5012126" side_tool="true" weight="0.3410302" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.09769094" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.09769094" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32978722" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -530,7 +525,8 @@
     <MESSAGE value="dev 2.2" />
     <MESSAGE value="dev 2.3&#10;fix and create collect function" />
     <MESSAGE value="fix&#10;and create change task indo function and create remove task function" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix&#10;and create change task indo function and create remove task function" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/static/img/star-dark.png">
@@ -814,6 +810,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/add_task.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1653">
+          <caret line="87" column="45" selection-start-line="87" selection-start-column="45" selection-end-line="87" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/add_task.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -821,17 +824,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/add_task.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="87" column="45" selection-start-line="87" selection-start-column="45" selection-end-line="87" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/my_task/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
+        <state relative-caret-position="345">
+          <caret line="163" column="51" lean-forward="true" selection-start-line="163" selection-start-column="51" selection-end-line="163" selection-end-column="51" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
