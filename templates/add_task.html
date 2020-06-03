@@ -12,7 +12,7 @@
     <script src="/static/wui-date/js/wui-date.js"></script>
     <script src="/static/js/add_task.js"></script>
     <script>
-        {#  发布任务时间输入组件  #}
+        //  发布任务时间输入组件  
         const app = angular.module('app', ["wui.date"]);
     </script>
 </head>
@@ -69,11 +69,11 @@
             				</li>
             				<li id="visible_male">
             					<img src="/static/img/man.png">
-                                <span>仅男生可见</span>
+                                <span>仅男生可领</span>
             				</li>
             				<li id="visible_female">
             					<img src="/static/img/woman.png">
-                                <span>仅女生可见</span>
+                                <span>仅女生可领</span>
             				</li>
             			</ul>
             		</div>
@@ -101,11 +101,11 @@
                                 <img src="/static/img/collect02.png">
                                 <span>我的收藏</span>
                             </li>
-                            <li>
-                                <img src="/static/img/histroy.png">
-                                <span>我浏览过</span>
+                            <li onclick="window.location.href = '/user/user_info'">
+                                <img src="/static/img/yh.png">
+                                <span>个人中心</span>
                             </li>
-                            <li>
+                            <li id="kf">
                                 <img src="/static/img/service.png">
                                 <span>联系客服</span>
                             </li>

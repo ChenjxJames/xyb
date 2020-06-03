@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>导航</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/nav.css">
+	<script src="/static/js/jquery-3.3.1.min.js"></script>
+	<script>
+		$(document).ready(function () {
+				$("#kf").click(function() { 
+				alert("客服QQ：1305612581\n客服电话：18324389821"); 
+			}); 
+		});
+	</script>
 </head>
 	<body>
 		<div id="task-discription">
@@ -12,15 +20,14 @@
 	            	<div class="text">校园帮</div>
 				</div>
 	            <div>
-	            	<img src="/static/img/close-white.svg" class="nav-icon"  style="cursor: pointer;margin-top: -14px;" onclick="window.location.href='/create_task'">
+	            	<img src="/static/img/close-white.svg" class="nav-icon"  style="cursor: pointer;margin-top: -14px;" onclick="JavaScript:history.back(1);" href="#">
 	            </div>
 	        </nav>
 	        <div class="nav-list">
 	        	 <ul>
 	        	 	<li onclick="window.location.href='/user/user_info'">用户中心</li>
-	        	 	<li>私信联系</li>
-	        	 	<li>我的客服</li>
-	        	 	<li>关于</li>
+	        	 	<li onclick="window.location.href='/create_task'">发布任务</li>
+	        	 	<li id="kf">联系客服</li>
 	        	 	<li onclick="window.location.href='/user/logout'">退出登录</li>
 	        	 </ul>
 	        </div>

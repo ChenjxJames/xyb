@@ -34,28 +34,29 @@ def is_login(fn):
     return inner
 
 
-# 获取用户对象
+# 获取当前用户（信息）对象
 def get_user(request):
     return models.UserInfo.objects.get(user_id=get_userid(request))
 
 
-# 获取用户对象
+# 根据用户id获取用户（信息）对象
 def get_user_by_id(user_id):
     return models.UserInfo.objects.get(user_id=user_id)
 
 
-# 获取用户名（返回request的用户名）
+# 获取当前用户名（返回request的用户名）
 def get_username(request):
     if 'username' in request.session:
         return request.session['username']
 
 
-# 获取用户编号（返回request来自的用户编号）
+# 获取当前用户编号（返回request来自的用户编号）
 def get_userid(request):
     if 'userid' in request.session:
         return request.session['userid']
 
 
+# 获取用户中心页面
 def index(request):
     return render(request, "user/index.html")
 
@@ -72,7 +73,6 @@ def login(request):
         if identity_code.upper() == request.session['img_identify_code'].upper():
             result = {'state': '-2', 'info': '用户名或密码错误！'}
             if models.UserInfo.objects.filter(user_name=username):
-                print("test")
                 user_obj = models.UserInfo.objects.get(user_name=username)
                 if user_obj.user_password == MD5.get_str_md5(password + PSD_STR):
                     print(username, "Login successful.", keep_login)
@@ -158,7 +158,7 @@ def reset_password(request):
         return render(request, "user/rePassword.html")
 
 
-# 更改密码（通过密码，需要登陆）
+# 更改信息（通过密码，需要登陆）
 @is_login
 def set_info(request):
     if request.method == "POST":
@@ -167,7 +167,6 @@ def set_info(request):
             username = request.POST['username']
             tel = request.POST['tel']
             email = request.POST['email']
-            result = {}
             user_obj = models.UserInfo.objects.get(user_id=get_userid(request))
             user_obj.user_name = username
             user_obj.user_tel = tel

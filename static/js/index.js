@@ -39,6 +39,10 @@ $(document).ready(function () {
         getCollectedTaskInfo();
     });
 
+    $("#kf").click(function() { 
+        alert("客服QQ：1305612581\n客服电话：18324389821"); 
+    }); 
+
     function queryTaskInfo(keyword) {
         $.getJSON("/query_tasks", {keyword: keyword}, function (data) {
             $("#task_list").empty();

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/index.css">
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/jquery.ajax.csrf.js"></script>
-    <script src="/static/js/index.js"></script>
+    <script src="/static/js/index.js"></script> 
 </head>
 <body>
     <div class="index">
@@ -63,11 +63,11 @@
                                 <img src="/static/img/collect02.png">
                                 <span>我的收藏</span>
                             </li>
-                            <li>
-                                <img src="/static/img/histroy.png">
-                                <span>我浏览过</span>
+                            <li onclick="window.location.href = '/user/user_info'">
+                                <img src="/static/img/yh.png">
+                                <span>个人中心</span>
                             </li>
-                            <li>
+                            <li id="kf">
                                 <img src="/static/img/service.png">
                                 <span>联系客服</span>
                             </li>

@@ -44,13 +44,11 @@
             });
 
             $("#user").click(function (event) {
-                console.log("user");
                 $("#user_info").show();
                 event.stopPropagation();
             });
 
             $("body").click(function () {
-                console.log("body");
                 $("#user_info").hide();
             });
 

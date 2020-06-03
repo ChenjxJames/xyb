@@ -10,10 +10,16 @@
             getUserInfo();
 
             if (getUrlParam('accept_task')) {
+                $("#btn_user_info").css("font-weight", "400");
+                $("#btn_task_center").css("font-weight", "600");
+                $("#btn_my_wallet").css("font-weight", "400");
                 showAcceptTaskCenter();
             }
 
             if (getUrlParam('task')) {
+                $("#btn_user_info").css("font-weight", "400");
+                $("#btn_task_center").css("font-weight", "600");
+                $("#btn_my_wallet").css("font-weight", "400");
                 showTaskCenter();
             }
 
@@ -138,6 +144,7 @@
                     if (data[0].state === '0') {
                         $("#nav_username").text(data[1].user_name);
                         $("#username").val(data[1].user_name);
+                        $("#title_username").text(data[1].user_name);
                         $("#tel").val(data[1].user_tel);
                         $("#email").val(data[1].user_email);
                         $("#user_price").text("账户余额：" + data[1].user_price + "元");
@@ -155,6 +162,9 @@
                             let state = "";
                             if (item.task_status === 0) {
                                 state = "待领取";
+                                if (new Date(item.deadline) < new Date()) {
+                                    state = "已过期";
+                                }
                             } else if (item.task_status === 1) {
                                 state = "待完成";
                             } else if (item.task_status === 2) {
@@ -252,21 +262,13 @@
             <img src="/static/img/star-dark.png" class="float-l" id="star_2">
             <img src="/static/img/star-dark.png" class="float-l" id="star_3">
             <img src="/static/img/star-dark.png" class="float-l" id="star_4">
-            <img src="/static/img/star-dark.png" id="star_5">
+            <img src="/static/img/star-dark.png" class="float-l" id="star_5">
         </div>
     </div>
     <div class="user-">
         <img src="/static/img/picture-girl.svg">
-        <div class="user-name">
-            Jenny
-        </div>
-        <div class="text">
-            <div class="focus-on">
-                关注1000
-            </div>
-            <div class="fans">
-                粉丝2000
-            </div>
+        <div class="user-name" id="title_username">
+            用户名加载中
         </div>
     </div>
     <div class="content">
@@ -277,7 +279,7 @@
                     <div class="task" id="btn_task_center">任务中心</div>
                     <div class="purse" id="btn_my_wallet">我的钱包</div>
                 </div>
-                <img src="/static/img/1.png">
+                <img src="/static/img/竖.png">
             </div>
             <div class="personal-info" id="user_info">
                 <form>

@@ -13,9 +13,9 @@ $(document).ready(function () {
                 if (data[1].task_sex_preference === 0) {
                     $("#set_visible>span").text("公开");
                 } else if(data[1].task_sex_preference === 1) {
-                    $("#set_visible>span").text("仅男生可见");
+                    $("#set_visible>span").text("仅男生可领");
                 } else if(data[1].task_sex_preference === 2) {
-                    $("#set_visible>span").text("仅女生可见");
+                    $("#set_visible>span").text("仅女生可领");
                 }
                 let task_can_accept = data[1].task_can_accept;
                 if (task_can_accept === '-1') {
@@ -27,6 +27,10 @@ $(document).ready(function () {
             }
         });
     }
+    
+    $("#kf").click(function() { 
+        alert("客服QQ：1305612581\n客服电话：18324389821"); 
+    }); 
 
     $("body").click(function () {
         $("#visible_list").hide();
@@ -45,13 +49,13 @@ $(document).ready(function () {
 
     //设置为仅男生可见
     $("#visible_male").click(function () {
-        $("#set_visible>span").text("仅男生可见");
+        $("#set_visible>span").text("仅男生可领");
         sex = 1;
     });
 
     //设置为仅女生可见
     $("#visible_female").click(function () {
-        $("#set_visible>span").text("仅女生可见");
+        $("#set_visible>span").text("仅女生可领");
         sex = 2;
     });
 

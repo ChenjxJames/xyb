@@ -12,8 +12,8 @@ from my_user.views import is_login, get_userid, get_user, get_user_by_id
 def index(request):
     return render(request, 'index.html')
 
-# 创建任务
 # 导航页
+# 登录验证
 @is_login
 def nav(request):
     if request.method == "GET":
@@ -41,7 +41,7 @@ def create_task(request):
             try:
                 user = get_user(request)
 
-                if user.user_price > int(price):
+                if user.user_price >= int(price):
                     models.TaskInfo.objects.create(task_id=task_id, task_title=title, task_detail=detail,
                                                    task_price=float(price), task_sex_preference=sex_preference,
                                                    user_id=user_id, deadline=deadline, task_status=0)
@@ -309,7 +309,7 @@ def get_my_accept_task(request):
                 item['deadline_str'] = item['deadline'].strftime("%Y%m%d%H%M")
                 item['deadline'] = item['deadline'].strftime("%Y-%m-%d %H:%M")
                 data.append(item)
-            data.sort(key=lambda x: x['deadline_str'], reverse=True)  # 按创建时间将任务列表降序排列，以保证最近截止的任务在前
+            data.sort(key=lambda x: x['deadline_str'], reverse=False)  # 按截止时间将任务列表升序排列，以保证最近截止的任务在前
             result = [{'state': '0', 'info': '查询成功！'}, data]
         except Exception:
             result = [{'state': '-2', 'info': '服务器错误请稍后尝试！'}]

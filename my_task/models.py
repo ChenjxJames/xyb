@@ -45,23 +45,6 @@ class TaskAcceptInfo(models.Model):
     # max_evaluate=5
 
 
-class TaskEvaluateInfo(models.Model):
-    """
-    任务评价信息模型类
-    """
-
-    class Meta:
-        db_table = 'task_evaluate'
-        verbose_name = '任务评价信息'
-        verbose_name_plural = verbose_name
-
-    evaluate_id = models.CharField(max_length=10, null=False, verbose_name='评价编号', primary_key=True)
-    task_id = models.CharField(max_length=10, null=False, verbose_name='任务编号')
-    user_id = models.CharField(max_length=10, null=False, verbose_name='用户编号')
-    evaluate = models.CharField(max_length=1023, null=False, verbose_name='文本评价')
-    evaluate_time = models.DateTimeField(auto_now_add=True, null=False, verbose_name='评价时间')
-
-
 class TaskCollectInfo(models.Model):
     """
     任务收藏信息模型类
