@@ -4,7 +4,7 @@ import random
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from base import MD5
+from base import MD5, sms
 from my_user import models
 
 PSD_STR = "ch2019"  # 用于密码加密的字符串
@@ -207,7 +207,7 @@ def identify_code(request):
             result = {'state': '-1', 'info': '该手机号码已注册，请更改手机号码后尝试！'}
         else:
             code = str(random.randint(10000, 99999))
-            if dx_identify_code(tel, code):
+            if sms.dx_identify_code(tel, code):
                 # 将手机号码及随机生成的5位验证码放入session
                 # 用于后面验证
                 # 5分钟有效
@@ -272,44 +272,6 @@ def identify_code(request):
         request.session.set_expiry(5 * 60)
 
         return response
-
-
-def dx_identify_code(tel, code):
-    # 短信应用SDK AppID
-    appid = 1400201395  # SDK AppID是1400开头
-
-    # 短信应用SDK AppKey
-    appkey = "b01087f69fcb040685b93b0448a20ad0"
-
-    # 需要发送短信的手机号码
-    phone_numbers = [str(tel)]
-
-    # 短信模板ID，需要在短信应用中申请
-    template_id = 311413  # NOTE: 这里的模板ID`7839`只是一个示例，真实的模板ID需要在短信控制台中申请
-    # templateId 7839 对应的内容是"您的验证码是: {1}"
-    # 签名
-    sms_sign = "东聿隹"
-
-    from qcloudsms_py import SmsSingleSender
-    from qcloudsms_py.httpclient import HTTPError
-
-    ssender = SmsSingleSender(appid, appkey)
-    params = [code]  # 当模板没有参数时，`params = []`，数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
-    result = {}
-    try:
-        result = ssender.send_with_param(86, phone_numbers[0],
-                                         template_id, params, sign=sms_sign, extend="",
-                                         ext="")  # 签名参数未提供或者为空时，会使用默认签名发送短信
-    except HTTPError as e:
-        print(e)
-    except Exception as e:
-        print(e)
-
-    bool_result = False
-    if result['result'] == 0:
-        bool_result = True
-
-    return bool_result
 
 
 # 用户主页
